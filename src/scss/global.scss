@@ -1,0 +1,24 @@
+@charset "utf-8";
+
+:root {
+  --warm-beige: #fff9f0;
+  --cool-white: #f9f9fb;
+  --black: #333;
+  --gray: #95989b;
+  --light-gray: #d9d9d9;
+  --dark-blown: #443232;
+  --muted-brown: #847777;
+  --navy: #393f5c;
+  --muted-navy: #576581;
+  --skyblue: #75889a;
+  --red: #ea7664;
+  --muted-rose: #b87272;
+  --muted-pink: #b78b8b;
+  --coral-pink: #fea28e;
+  --gradient-pink: linear-gradient(
+    90deg,
+    #ffc0b2 0%,
+    #ff7557 50%,
+    #fea28e 100%
+  );
+}
