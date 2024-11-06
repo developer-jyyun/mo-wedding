@@ -1,0 +1,38 @@
+// 마루부리
+@font-face {
+  font-family: 'MaruBuriLight';
+  src:
+    url('../assets/fonts/MaruBuri-Light.woff2') format('woff2'),
+    url('../assets/fonts/MaruBuri-Light.woff') format('woff'),
+    url('../assets/fonts/MaruBuri-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'MaruBuri';
+  src:
+    url('../assets/fonts/MaruBuri-Light.woff2') format('woff2'),
+    url('../assets/fonts/MaruBuri-Light.woff') format('woff'),
+    url('../assets/fonts/MaruBuri-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'MaruBuriSemiBold';
+  src:
+    url('../assets/fonts/MaruBuri-SemiBold.woff2') format('woff2'),
+    url('../assets/fonts/MaruBuri-SemiBold.woff') format('woff'),
+    url('../assets/fonts/MaruBuri-SemiBold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'MaruBuriBold';
+  src:
+    url('../assets/fonts/MaruBuri-Bold.woff2') format('woff2'),
+    url('../assets/fonts/MaruBuri-Bold.woff') format('woff'),
+    url('../assets/fonts/MaruBuri-SemiBold.ttf') format('truetype');
+}
+
+// FingerPaint
+@font-face {
+  font-family: 'Finger Paint';
+  src:
+    url('../assets/fonts/FingerPaint-Regular.ttf') format('woff2'),
+    url('../assets/fonts/FingerPaint-Regular.woff') format('woff'),
+    url('../assets/fonts/FingerPaint-Regular.ttf') format('truetype');
+}
