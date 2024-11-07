@@ -1,7 +1,3 @@
-import React from 'react'
-import logo from './logo.svg'
-import './App.css'
-
 import classNames from 'classnames/bind'
 import styles from './App.module.scss'
 
@@ -10,7 +6,6 @@ function App() {
   return (
     <div className={cx('container')}>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
