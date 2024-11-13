@@ -1,31 +1,45 @@
-// 마루부리
-@font-face {
-  font-family: 'MaruBuriLight';
-  src:
-    url('../assets/fonts/MaruBuri-Light.woff2') format('woff2'),
-    url('../assets/fonts/MaruBuri-Light.woff') format('woff'),
-    url('../assets/fonts/MaruBuri-Light.ttf') format('truetype');
-}
+// MaruBuri Light
 @font-face {
   font-family: 'MaruBuri';
   src:
     url('../assets/fonts/MaruBuri-Light.woff2') format('woff2'),
     url('../assets/fonts/MaruBuri-Light.woff') format('woff'),
     url('../assets/fonts/MaruBuri-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
 }
+
+// MaruBuri Regular
 @font-face {
-  font-family: 'MaruBuriSemiBold';
+  font-family: 'MaruBuri';
+  src:
+    url('../assets/fonts/MaruBuri-Regular.woff2') format('woff2'),
+    url('../assets/fonts/MaruBuri-Regular.woff') format('woff'),
+    url('../assets/fonts/MaruBuri-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+// MaruBuri SemiBold
+@font-face {
+  font-family: 'MaruBuri';
   src:
     url('../assets/fonts/MaruBuri-SemiBold.woff2') format('woff2'),
     url('../assets/fonts/MaruBuri-SemiBold.woff') format('woff'),
     url('../assets/fonts/MaruBuri-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
 }
+
+// MaruBuri Bold
 @font-face {
-  font-family: 'MaruBuriBold';
+  font-family: 'MaruBuri';
   src:
     url('../assets/fonts/MaruBuri-Bold.woff2') format('woff2'),
     url('../assets/fonts/MaruBuri-Bold.woff') format('woff'),
-    url('../assets/fonts/MaruBuri-SemiBold.ttf') format('truetype');
+    url('../assets/fonts/MaruBuri-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
 }
 
 // FingerPaint
