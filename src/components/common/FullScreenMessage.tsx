@@ -1,5 +1,7 @@
 import styles from './FullScreenMessage.module.scss'
 import classNames from 'classnames/bind'
+import { TbFaceIdError } from 'react-icons/tb'
+import { FaHeart } from 'react-icons/fa'
 
 const cx = classNames.bind(styles)
 
@@ -14,10 +16,10 @@ export default function FullScreenMessage({
   return (
     <div className={cx('container')}>
       {type === 'loading' ? (
-        <Heart />
+        <FaHeart className={cx('icon-heart')} />
       ) : (
         <>
-          <Error />
+          <TbFaceIdError className={cx('icon-error')} />
           <p>{text}</p>
         </>
       )}
@@ -25,7 +27,7 @@ export default function FullScreenMessage({
   )
 }
 
-function Error() {
+/* function Error() {
   return (
     <svg
       className={cx('icon-error')}
@@ -66,3 +68,4 @@ function Heart() {
     </svg>
   )
 }
+ */
