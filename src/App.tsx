@@ -1,11 +1,15 @@
 import classNames from 'classnames/bind'
 import { useEffect, useState } from 'react'
 import styles from './App.module.scss'
-import FullScreenMessage from './components/common/FullScreenMessage'
+import FullScreenMessage from '@common/FullScreenMessage'
+import Video from './components/sections/Video'
+import ImageGallery from './components/sections/ImageGallery'
+import Heading from './components/sections/Heading'
+import { Wedding } from '@models/wedding'
 
 const cx = classNames.bind(styles)
 function App() {
-  const [wedding, setWedding] = useState(null)
+  const [wedding, setWedding] = useState<Wedding | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
@@ -42,10 +46,17 @@ function App() {
       />
     )
   }
+
+  if (wedding === null) {
+    return null
+  }
+  const { date, galleryImages } = wedding
   return (
     <div className={cx('container')}>
-      <FullScreenMessage type="loading" />
-      {/* {JSON.stringify(wedding)}{' '} */}
+      <Heading date={date} />
+      <ImageGallery images={galleryImages} />
+      <Video />
+      {/* {JSON.stringify(wedding)} */}
     </div>
   )
 }
