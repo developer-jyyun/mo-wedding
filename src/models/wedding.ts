@@ -6,8 +6,8 @@ export interface Wedding {
     intro: string
     invitation: string
   }
-  gallerImages: string[]
-  attnendCount: number
+  galleryImages: string[]
+  attendCount: number
 
   groom: Person & { parents: Person[] }
   bride: Person & { parents: Person[] }
@@ -22,7 +22,7 @@ export interface Location {
   waytocome: {
     metro: string[]
     bus: string[]
-    suttle: string[]
+    shuttle: string[]
     car: string[]
   }
 }
