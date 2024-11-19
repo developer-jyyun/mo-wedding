@@ -9,6 +9,7 @@ import Heading from '@components/sections/Heading'
 import { Wedding } from '@models/wedding'
 import Main from '@components/sections/Main'
 import Calendar from '@components/sections/Calendar'
+import Map from '@components/sections/Map'
 
 const cx = classNames.bind(styles)
 function App() {
@@ -66,6 +67,7 @@ function App() {
       <ImageGallery images={galleryImages} />
       <Video />
       <Calendar date={date} />
+      <Map location={location} />
       {/* {JSON.stringify(wedding)} */}
     </div>
   )
