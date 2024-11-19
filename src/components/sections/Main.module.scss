@@ -1,0 +1,24 @@
+.container {
+  .main {
+    font-family: 'Finger Paint';
+    position: relative;
+    color: #69a66f;
+    img {
+      width: 80%;
+      margin: 0 auto;
+      position: relative;
+      left: 20%;
+      z-index: 0;
+    }
+    .title-box {
+      font-size: 6rem;
+      position: absolute;
+      top: -54px;
+      left: 0;
+      line-height: 100px;
+      text-align: left;
+      margin: 0 auto;
+      z-index: 1;
+    }
+  }
+}
