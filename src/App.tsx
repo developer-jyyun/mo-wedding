@@ -4,10 +4,11 @@ import styles from './App.module.scss'
 import FullScreenMessage from '@common/FullScreenMessage'
 import Video from './components/sections/Video'
 import ImageGallery from './components/sections/ImageGallery'
-import Intro from './components/sections/Intro'
-import Heading from './components/sections/Heading'
+import Intro from '@components/sections/Intro'
+import Heading from '@components/sections/Heading'
 import { Wedding } from '@models/wedding'
-import Main from './components/sections/Main'
+import Main from '@components/sections/Main'
+import Calendar from '@components/sections/Calendar'
 
 const cx = classNames.bind(styles)
 function App() {
@@ -64,6 +65,7 @@ function App() {
       />
       <ImageGallery images={galleryImages} />
       <Video />
+      <Calendar date={date} />
       {/* {JSON.stringify(wedding)} */}
     </div>
   )

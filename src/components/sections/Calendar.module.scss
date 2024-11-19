@@ -1,0 +1,17 @@
+@import '@/scss/utils.scss';
+
+.container {
+  @include flex-col-center;
+  gap: 2rem;
+
+  .header {
+    @include flex-col-center;
+    gap: 1.2rem;
+    .text-date {
+      font-size: 1.6rem;
+    }
+    .text-time {
+      font-size: 1.2rem;
+    }
+  }
+}
