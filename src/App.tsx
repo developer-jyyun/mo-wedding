@@ -4,8 +4,10 @@ import styles from './App.module.scss'
 import FullScreenMessage from '@common/FullScreenMessage'
 import Video from './components/sections/Video'
 import ImageGallery from './components/sections/ImageGallery'
+import Intro from './components/sections/Intro'
 import Heading from './components/sections/Heading'
 import { Wedding } from '@models/wedding'
+import Main from './components/sections/Main'
 
 const cx = classNames.bind(styles)
 function App() {
@@ -50,10 +52,16 @@ function App() {
   if (wedding === null) {
     return null
   }
-  const { date, galleryImages } = wedding
+  const { groom, bride, date, galleryImages, message, location } = wedding
   return (
     <div className={cx('container')}>
-      <Heading date={date} />
+      <Heading date={date} groomName={groom.name} brideName={bride.name} />
+      <Main />
+      <Intro
+        invitation={message.invitation}
+        locationName={location.name}
+        date={date}
+      />
       <ImageGallery images={galleryImages} />
       <Video />
       {/* {JSON.stringify(wedding)} */}
