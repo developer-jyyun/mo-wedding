@@ -9,6 +9,8 @@
   --black: #333;
   --gray: #95989b;
   --light-gray: #d9d9d9;
+  --cool-gray: #919bad;
+
   --dark-brown: #443232;
   --muted-brown: #847777;
   --navy: #393f5c;
@@ -31,6 +33,12 @@ html {
 }
 body {
   font-size: 1.6rem;
-  font-family: 'MaruBuri';
+  font-family: 'IropkeBatangM';
+  background-color: raba(0, 0, 0, 0.1);
+}
+
+#root {
+  max-width: 480px;
+  margin: 0 auto;
   background-color: var(--warm-beige);
 }
