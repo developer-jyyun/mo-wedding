@@ -3,6 +3,7 @@ import Section from '@common/Section'
 import styles from './Map.module.scss'
 import React, { useEffect, useRef } from 'react'
 import { Location } from '@models/wedding'
+import Text from '../common/Text'
 
 declare global {
   interface Window {
@@ -68,9 +69,13 @@ export default function Map({ location }: Props) {
         </div>
 
         <div>
-          <WayToCome label="버스" list={location.waytocome.bus} />
-          <WayToCome label="지하철" list={location.waytocome.metro} />
-          <WayToCome label="셔틀버스" list={location.waytocome.shuttle} />
+          <WayToCome label="🚌 버스" list={location.waytocome.bus} />
+          <WayToCome label="🚃 지하철" list={location.waytocome.metro} />
+          <WayToCome
+            label="🚍 무료 셔틀버스"
+            list={location.waytocome.shuttle}
+          />
+          <WayToCome label="🚗 자가용" list={location.waytocome.car} />
         </div>
       </Section>
     </>
@@ -88,7 +93,9 @@ function WayToCome({
       <div className={cx('txt-label')}>{label}</div>
       <ul>
         {list.map((waytocome) => (
-          <li>{waytocome}</li>
+          <li>
+            <Text>{waytocome}</Text>
+          </li>
         ))}
       </ul>
     </div>
