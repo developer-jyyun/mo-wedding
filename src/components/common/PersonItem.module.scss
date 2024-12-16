@@ -1,0 +1,43 @@
+.person-wrap {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem auto;
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid;
+    .sub-title {
+      opacity: 0.6;
+    }
+  }
+
+  .person-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5rem;
+    .name {
+      font-weight: bold;
+    }
+    .icon-wrap {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+}
+
+.groom-contact {
+  color: var(--skyblue);
+  .title {
+    border-color: var(--skyblue);
+  }
+}
+
+.bride-contact {
+  color: var(--muted-pink);
+  .title {
+    border-color: var(--muted-pink);
+  }
+}

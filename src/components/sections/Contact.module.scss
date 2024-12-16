@@ -1,0 +1,14 @@
+.contact-header {
+  text-align: center;
+  color: var(--muted-brown);
+  border: 1px solid var(--dark-brown);
+  border-right: none;
+  border-left: none;
+  padding: 2rem 0;
+  line-height: 3rem;
+  .name {
+    color: var(--dark-brown);
+    font-weight: bold;
+    font-size: 2rem;
+  }
+}

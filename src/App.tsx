@@ -10,6 +10,7 @@ import { Wedding } from '@models/wedding'
 import Main from '@components/sections/Main'
 import Calendar from '@components/sections/Calendar'
 import Map from '@components/sections/Map'
+import Contact from '@components/sections/Contact'
 
 const cx = classNames.bind(styles)
 function App() {
@@ -55,6 +56,7 @@ function App() {
     return null
   }
   const { groom, bride, date, galleryImages, message, location } = wedding
+
   return (
     <div className={cx('container')}>
       <Heading date={date} groomName={groom.name} brideName={bride.name} />
@@ -68,6 +70,7 @@ function App() {
       <Video />
       <Calendar date={date} />
       <Map location={location} />
+      <Contact groom={groom} bride={bride} />
       {/* {JSON.stringify(wedding)} */}
     </div>
   )

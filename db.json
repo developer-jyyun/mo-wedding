@@ -28,6 +28,7 @@
     },
     "groom": {
       "name": "이춘호",
+      "relation": "차남",
       "account": {
         "bankName": "카카오뱅크",
         "accountNumber": "3333-16-108-5140",
@@ -37,6 +38,7 @@
       "parents": [
         {
           "name": "이호묵",
+          "relation": "아버지",
           "account": {
             "bankName": "신한",
             "accountNumber": "34002-444463"
@@ -45,6 +47,7 @@
         },
         {
           "name": "송용인",
+          "relation": "어머니",
           "account": {
             "bankName": "국민",
             "accountNumber": "882602-04-044785"
@@ -55,6 +58,7 @@
     },
     "bride": {
       "name": "윤지영",
+      "relation": "장녀",
       "account": {
         "bankName": "국민",
         "accountNumber": "510001-01-044743"
@@ -63,6 +67,7 @@
       "parents": [
         {
           "name": "윤안희",
+          "relation": "아버지",
           "account": {
             "bankName": "기업",
             "accountNumber": "064-165693-02-013"
@@ -71,6 +76,7 @@
         },
         {
           "name": "김임순",
+          "relation": "어머니",
           "account": {
             "bankName": "농협",
             "accountNumber": "302-1643-2359-51"

@@ -1,0 +1,47 @@
+.wrap-accoridon {
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .wrap-header {
+    margin: 2rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    border-radius: 50px;
+    cursor: pointer;
+    padding: 0.6rem 2rem;
+    border: 1px solid var(--muted-brown);
+    color: var(--muted-brown);
+    .ico-arrow-down {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .wrap-content {
+    display: none;
+  }
+}
+
+.wrap-accoridon.open {
+  .wrap-header {
+    .ico-arrow-down {
+      transform: rotate(-180deg);
+    }
+  }
+  .wrap-content {
+    background-color: #ffffffa9;
+    display: block;
+    // width: 100%;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+  }
+}
+/* .accordion-contact {
+} */
+.accordion-account {
+  background-color: #00ff;
+}
