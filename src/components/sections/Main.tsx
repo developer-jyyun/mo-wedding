@@ -13,7 +13,7 @@ export default function Main() {
             <p>Welcome</p>
             <p>to </p>
             <p>Our</p>
-            <p>Wedding</p>
+            <p>Wedding !</p>
           </div>
           <img src="/assets/images/wd03.jpg" alt="메인이미지" />
         </div>

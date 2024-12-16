@@ -2,7 +2,7 @@ import classNames from 'classnames/bind'
 import Section from '@common/Section'
 import styles from './Intro.module.scss'
 import { parseISO, format, getDay } from 'date-fns'
-import Text from '../common/Text'
+import Text from '@common/Text'
 
 const cx = classNames.bind(styles)
 
