@@ -10,7 +10,6 @@ interface PersonItemProps {
   name: string
 
   iconType: 'contact' | 'account'
-  className?: string
   phoneNumber: number
 }
 
@@ -20,11 +19,11 @@ export default function PersonItem({
   role,
   name,
   phoneNumber,
-  className,
+
   iconType,
 }: PersonItemProps) {
   return (
-    <div className={cx('person-wrap', `${className}-contact`)}>
+    <div className={cx('person-wrap')}>
       {role.type === 'self' && (
         <h3 className={cx('title')}>
           {role.main}측 <span className={cx('sub-title')}> {role.sub}</span>

@@ -33,8 +33,9 @@ export interface Account {
   kakaopayLink?: string
 }
 
-interface Person {
+export interface Person {
   name: string
   account: Account
   phoneNumber: number
+  relation?: string
 }

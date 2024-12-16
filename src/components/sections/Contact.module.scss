@@ -12,3 +12,22 @@
     font-size: 2rem;
   }
 }
+.contact-contents {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .groom {
+    color: var(--skyblue);
+    .title {
+      border-color: var(--skyblue);
+    }
+  }
+
+  .bride {
+    color: var(--muted-pink);
+    .title {
+      border-color: var(--muted-pink);
+    }
+  }
+}

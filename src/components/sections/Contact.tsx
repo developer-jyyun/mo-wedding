@@ -31,45 +31,46 @@ export default function Contact({ groom, bride }: Props) {
       </div>
 
       <Accordion label="연락처">
-        <PersonItem
-          className={'groom'}
-          role={{ type: 'self', main: '신랑', sub: 'groom' }}
-          name={groom.name}
-          phoneNumber={groom.phoneNumber}
-          iconType="contact"
-        />
-        {groom.parents.map((parent, idx) => {
-          return (
+        <div className={cx('contact-contents')}>
+          <div className={cx('groom')}>
             <PersonItem
-              key={idx}
-              className={'groom'}
-              role={{ type: 'parent', main: `신랑의 ${parent.relation}` }}
-              name={parent.name}
-              phoneNumber={parent.phoneNumber}
+              role={{ type: 'self', main: '신랑', sub: 'groom' }}
+              name={groom.name}
+              phoneNumber={groom.phoneNumber}
               iconType="contact"
             />
-          )
-        })}
-
-        <PersonItem
-          className={'bride'}
-          role={{ type: 'self', main: '신부', sub: 'bride' }}
-          name={bride.name}
-          phoneNumber={bride.phoneNumber}
-          iconType="contact"
-        />
-        {bride.parents.map((parent, idx) => {
-          return (
+            {groom.parents.map((parent, idx) => {
+              return (
+                <PersonItem
+                  key={idx}
+                  role={{ type: 'parent', main: `신랑의 ${parent.relation}` }}
+                  name={parent.name}
+                  phoneNumber={parent.phoneNumber}
+                  iconType="contact"
+                />
+              )
+            })}
+          </div>
+          <div className={cx('bride')}>
             <PersonItem
-              key={idx}
-              className={'bride'}
-              role={{ type: 'parent', main: `신부의 ${parent.relation}` }}
-              name={parent.name}
-              phoneNumber={parent.phoneNumber}
+              role={{ type: 'self', main: '신부', sub: 'bride' }}
+              name={bride.name}
+              phoneNumber={bride.phoneNumber}
               iconType="contact"
             />
-          )
-        })}
+            {bride.parents.map((parent, idx) => {
+              return (
+                <PersonItem
+                  key={idx}
+                  role={{ type: 'parent', main: `신부의 ${parent.relation}` }}
+                  name={parent.name}
+                  phoneNumber={parent.phoneNumber}
+                  iconType="contact"
+                />
+              )
+            })}
+          </div>
+        </div>
       </Accordion>
     </Section>
   )
