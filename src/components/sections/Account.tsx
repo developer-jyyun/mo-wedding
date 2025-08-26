@@ -1,3 +1,4 @@
+// src/components/sections/Account.tsx
 import classNames from 'classnames/bind'
 import styles from './Account.module.scss'
 import Section from '@common/Section'
@@ -24,35 +25,31 @@ const copyAccount = async (text?: string) => {
   }
 }
 
-const actionsNode = (
+const normalizeLink = (s?: string) => {
+  const v = (s ?? '').trim()
+  return v.length ? v : undefined
+}
+
+const buildActions = (
   bankName?: string,
   accountNumber?: string,
   kakaopayLink?: string,
 ) => {
-  if (!accountNumber && !kakaopayLink) return null
+  const link = normalizeLink(kakaopayLink)
 
-  const onKakaoPayClick = () => {
-    if (kakaopayLink) {
-      window.open(kakaopayLink, '_blank')
-      return
-    }
-    alert(
-      `카카오페이 앱에서 [송금] → [계좌로]를 선택한 뒤\n` +
-        `은행: ${bankName ?? '-'} / 계좌: ${accountNumber ?? '-'} 를 입력해 송금해주세요.`,
-    )
-  }
+  const nameActions = link ? (
+    <img
+      src={kpayImg}
+      alt="카카오페이 송금"
+      onClick={() => window.open(link, '_blank', 'noopener,noreferrer')}
+    />
+  ) : null
 
-  return (
-    <>
-      {accountNumber && (
-        <BiCopy
-          aria-label="계좌 복사"
-          onClick={() => copyAccount(accountNumber)}
-        />
-      )}
-      <img src={kpayImg} alt="카카오페이 송금" onClick={onKakaoPayClick} />
-    </>
-  )
+  const accountActions = accountNumber ? (
+    <BiCopy aria-label="계좌 복사" onClick={() => copyAccount(accountNumber)} />
+  ) : null
+
+  return { nameActions, accountActions }
 }
 
 export default function Account({ groom, bride }: Props) {
@@ -69,33 +66,42 @@ export default function Account({ groom, bride }: Props) {
       <div className={cx('groom')}>
         <Accordion label="신랑측 계좌번호" variant="account">
           <div className={cx('group')}>
-            {/* 본인 */}
-            <AccountItem
-              bankName={groom.account?.bankName}
-              accountNumber={groom.account?.accountNumber}
-              roleText="신랑"
-              name={groom.name}
-              actions={actionsNode(
+            {(() => {
+              const a = buildActions(
                 groom.account?.bankName,
                 groom.account?.accountNumber,
                 groom.account?.kakaopayLink,
-              )}
-            />
-            {/* 부모 */}
-            {groom.parents.map((p, idx) => (
-              <AccountItem
-                key={idx}
-                bankName={p.account?.bankName}
-                accountNumber={p.account?.accountNumber}
-                roleText={`신랑의 ${p.relation}`}
-                name={p.name}
-                actions={actionsNode(
-                  p.account?.bankName,
-                  p.account?.accountNumber,
-                  p.account?.kakaopayLink,
-                )}
-              />
-            ))}
+              )
+              return (
+                <AccountItem
+                  bankName={groom.account?.bankName}
+                  accountNumber={groom.account?.accountNumber}
+                  roleText="신랑"
+                  name={groom.name}
+                  nameActions={a.nameActions}
+                  accountActions={a.accountActions}
+                />
+              )
+            })()}
+
+            {groom.parents.map((p, idx) => {
+              const a = buildActions(
+                p.account?.bankName,
+                p.account?.accountNumber,
+                p.account?.kakaopayLink,
+              )
+              return (
+                <AccountItem
+                  key={idx}
+                  bankName={p.account?.bankName}
+                  accountNumber={p.account?.accountNumber}
+                  roleText={`신랑의 ${p.relation}`}
+                  name={p.name}
+                  nameActions={a.nameActions}
+                  accountActions={a.accountActions}
+                />
+              )
+            })}
           </div>
         </Accordion>
       </div>
@@ -104,33 +110,42 @@ export default function Account({ groom, bride }: Props) {
       <div className={cx('bride')}>
         <Accordion label="신부측 계좌번호" variant="account">
           <div className={cx('group')}>
-            {/* 본인 */}
-            <AccountItem
-              bankName={bride.account?.bankName}
-              accountNumber={bride.account?.accountNumber}
-              roleText="신부"
-              name={bride.name}
-              actions={actionsNode(
+            {(() => {
+              const a = buildActions(
                 bride.account?.bankName,
                 bride.account?.accountNumber,
                 bride.account?.kakaopayLink,
-              )}
-            />
-            {/* 부모 */}
-            {bride.parents.map((p, idx) => (
-              <AccountItem
-                key={idx}
-                bankName={p.account?.bankName}
-                accountNumber={p.account?.accountNumber}
-                roleText={`신부의 ${p.relation}`}
-                name={p.name}
-                actions={actionsNode(
-                  p.account?.bankName,
-                  p.account?.accountNumber,
-                  p.account?.kakaopayLink,
-                )}
-              />
-            ))}
+              )
+              return (
+                <AccountItem
+                  bankName={bride.account?.bankName}
+                  accountNumber={bride.account?.accountNumber}
+                  roleText="신부"
+                  name={bride.name}
+                  nameActions={a.nameActions}
+                  accountActions={a.accountActions}
+                />
+              )
+            })()}
+
+            {bride.parents.map((p, idx) => {
+              const a = buildActions(
+                p.account?.bankName,
+                p.account?.accountNumber,
+                p.account?.kakaopayLink,
+              )
+              return (
+                <AccountItem
+                  key={idx}
+                  bankName={p.account?.bankName}
+                  accountNumber={p.account?.accountNumber}
+                  roleText={`신부의 ${p.relation}`}
+                  name={p.name}
+                  nameActions={a.nameActions}
+                  accountActions={a.accountActions}
+                />
+              )
+            })}
           </div>
         </Accordion>
       </div>

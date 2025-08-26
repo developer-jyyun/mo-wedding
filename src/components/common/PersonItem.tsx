@@ -1,36 +1,51 @@
+// src/components/sections/AccountItem.tsx
 import React, { ReactNode } from 'react'
 import classNames from 'classnames/bind'
-import styles from './PersonItem.module.scss'
+import commonStyles from '@/components/common/PersonItem.module.scss'
+import styles from './AccountItem.module.scss'
 
+const ccx = classNames.bind(commonStyles)
 const cx = classNames.bind(styles)
 
-export type Role = { type: string; main: string; sub?: string }
-
-export interface PersonItemProps {
-  role: Role
+interface Props {
+  bankName?: string
+  accountNumber?: string
+  roleText: string
   name: string
-  /** 연락/계좌 아이콘들을 외부에서 만들어 넣는 슬롯 */
+  /** 1행 오른쪽(카카오 등) */
+  nameActions?: ReactNode
+  /** 2행 오른쪽(복사 등) */
+  accountActions?: ReactNode
+  /** 🔙 과거 코드 호환용: 쓰면 accountActions 대신 렌더 */
   actions?: ReactNode
-  /** 과거 코드 호환용(지금은 쓰지 않아도 되게 optional 처리) */
-  iconType?: 'contact' | 'account'
-  phoneNumber?: number
 }
 
-export default function PersonItem({ role, name, actions }: PersonItemProps) {
+export default function AccountItem({
+  bankName,
+  accountNumber,
+  roleText,
+  name,
+  nameActions,
+  accountActions,
+  actions,
+}: Props) {
   return (
-    <div className={cx('person-wrap')}>
-      {role.type === 'self' && (
-        <h3 className={cx('title')}>
-          {role.main}측 <span className={cx('sub-title')}>{role.sub}</span>
-        </h3>
-      )}
-
-      <div className={cx('person-item')}>
-        <div className={cx('text')}>
-          <span className={cx('label')}>{role.main}</span>
+    <div className={`${ccx('person-wrap')} ${cx('account-item')}`}>
+      {/* 1행: 관계 + 이름 + (카카오) */}
+      <div className={cx('rowTop')}>
+        <div className={cx('topLeft')}>
+          <span className={cx('role')}>{roleText}</span>
           <span className={cx('name')}>{name}</span>
         </div>
-        <ul className={cx('icon-wrap')}>{actions}</ul>
+        <div className={cx('topActions')}>{nameActions}</div>
+      </div>
+
+      {/* 2행: 은행/계좌 + (복사/과거 actions) */}
+      <div className={cx('rowBottom')}>
+        <span className={cx('bank')}>
+          {bankName ?? '-'} {accountNumber ?? '-'}
+        </span>
+        <span className={cx('actions')}>{accountActions ?? actions}</span>
       </div>
     </div>
   )

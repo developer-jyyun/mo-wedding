@@ -11,7 +11,10 @@ interface Props {
   accountNumber?: string
   roleText: string
   name: string
-  actions?: ReactNode
+  /** 1행(이름 라인) 오른쪽 액션: 카카오페이 등 */
+  nameActions?: ReactNode
+  /** 2행(계좌 라인) 오른쪽 액션: 복사 등 */
+  accountActions?: ReactNode
 }
 
 export default function AccountItem({
@@ -19,20 +22,24 @@ export default function AccountItem({
   accountNumber,
   roleText,
   name,
-  actions,
+  nameActions,
+  accountActions,
 }: Props) {
   return (
     <div className={`${ccx('person-wrap')} ${cx('account-item')}`}>
       <div className={cx('rowTop')}>
-        <span className={cx('role')}>{roleText}</span>
-        <span className={cx('name')}>{name}</span>
+        <div className={cx('topLeft')}>
+          <span className={cx('role')}>{roleText}</span>
+          <span className={cx('name')}>{name}</span>
+        </div>
+        <div className={cx('topActions')}>{nameActions}</div>
       </div>
 
       <div className={cx('rowBottom')}>
         <span className={cx('bank')}>
           {bankName ?? '-'} {accountNumber ?? '-'}
         </span>
-        <span className={cx('actions')}>{actions}</span>
+        <span className={cx('actions')}>{accountActions}</span>
       </div>
     </div>
   )
