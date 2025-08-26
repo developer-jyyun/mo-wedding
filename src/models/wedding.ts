@@ -36,6 +36,6 @@ export interface Account {
 export interface Person {
   name: string
   account?: Account
-  phoneNumber?: number
+  phoneNumber?: string
   relation: string
 }

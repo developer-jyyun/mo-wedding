@@ -1,14 +1,13 @@
 import { ReactElement } from 'react'
 import classNames from 'classnames/bind'
-import styles from './Contact.module.scss'
 import Section from '@common/Section'
 import { Wedding } from '@models/wedding'
 import Accordion from '@common/Accordion'
 import { PiPhoneCallFill } from 'react-icons/pi'
 import { TbMessage } from 'react-icons/tb'
 import { handleCall, handleMessage } from '@/utils/ContactActions'
-import PersonGroup from '../common/PersonGroup'
-
+import PersonGroup from '@common/PersonGroup'
+import styles from '@/components/sections/Contact.module.scss'
 const cx = classNames.bind(styles)
 
 interface Props {
@@ -16,7 +15,7 @@ interface Props {
   bride: Wedding['bride']
 }
 
-const actions = (phoneNumber?: number): ReactElement[] => {
+const actions = (phoneNumber?: string): ReactElement[] => {
   if (!phoneNumber) return []
   return [
     <PiPhoneCallFill key="call" onClick={() => handleCall(phoneNumber)} />,
