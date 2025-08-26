@@ -4,19 +4,14 @@ import styles from './Section.module.scss'
 
 const cx = classNames.bind(styles)
 
-// DOM title(string)과 충돌 방지를 위해 Omit
 interface SectionProps
   extends Omit<React.HTMLAttributes<HTMLElement>, 'title'> {
   children: React.ReactNode
   className?: string
   title?: React.ReactNode
-  /** 자식 요소 순차 등장 */
   stagger?: boolean
-  /** 히어로/CTA 팝 느낌 강화 (거리/스케일 살짝 증가) */
   pop?: boolean
-  /** 섹션 패딩 제어: 기본(default)/없음(none) */
   gutter?: 'default' | 'none'
-  /** 리빌 애니메이션 켜/끄기 (내부 섹션 중첩 시 끄기용) */
   reveal?: boolean
 }
 
@@ -40,14 +35,12 @@ export default function Section({
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.classList.add(styles.isVisible)
-          io.unobserve(el) // 한 번만
+          el.classList.add(styles.isVisible) // 로컬(해시) 클래스
+          el.setAttribute('data-visible', 'true') //  전역 훅 추가
+          io.unobserve(el)
         }
       },
-      {
-        threshold: 0.08, // 살짝 더 일찍 트리거
-        rootMargin: '0px 0px -5% 0px',
-      },
+      { threshold: 0.1, rootMargin: '0px 0px -6% 0px' },
     )
 
     io.observe(el)

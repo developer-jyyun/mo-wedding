@@ -1,0 +1,11 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* 클릭 막지 않기 */
+  z-index: var(--fx-z, 1);
+}
+.layer > canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
