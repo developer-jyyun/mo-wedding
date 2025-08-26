@@ -5,7 +5,6 @@
   .txt-title {
     margin-bottom: 16px;
   }
-
   .txt-subtitle {
     font-weight: 400;
     font-size: 15px;
@@ -19,6 +18,8 @@
   .map {
     width: 100%;
     height: 250px;
+    border-radius: 10px;
+    overflow: hidden;
   }
 
   .btn-find-way {
@@ -35,31 +36,122 @@
     border-radius: 32px;
   }
 }
+.navapps {
+  margin: 12px 0 4px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
 
-.wrap-waytocome {
-  margin: 16px 0;
-  line-height: 1.6;
+/* 공통 버튼 */
+.navbtn {
+  flex: 1 1 0;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--light-gray);
+  background: #fff;
+  color: var(--muted-brown);
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1;
+  white-space: nowrap;
+  font-family: 'Ridibatang', 'IropkeBatangM', sans-serif;
+  cursor: pointer;
+}
 
-  .txt-label {
-    font-size: 1.6rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  ul {
-    font-size: 1.4rem;
-    padding-left: 2rem;
+.navbtn img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
+}
 
-    li {
-      ::before {
-        content: '▪ ';
-        display: inline;
-      }
-      div {
-        display: inline-block;
-        text-indent: -1rem;
-        font-family: 'Ridibatang';
-        color: var(--muted-brown);
-      }
-    }
-  }
+/* 탭 */
+.tabCard {
+  margin-top: 12px;
+}
+.tabInner {
+  // padding: 0 12px;
+}
+/* 상단 탭 바 */
+.tabBar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  align-items: end;
+  margin-bottom: -1px;
+}
+
+/* 개별 탭 */
+.tab {
+  padding: 10px 16px;
+  border: 1px solid #eadfd6;
+  border-bottom: none; /* 패널과 자연스럽게 붙도록 */
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background: transparent;
+  color: var(--muted-brown);
+  font-weight: 700;
+  font-size: 1.3rem;
+  cursor: pointer;
+  font-family: 'Ridibatang';
+  letter-spacing: -1px;
+}
+
+.tab.active {
+  background: #fff;
+  color: var(--dark-brown);
+}
+
+/* 하단 패널 */
+.tabPanel {
+  border: 1px solid #eadfd6;
+  border-radius: 0 0 8px 8px;
+  background: #fff;
+  padding: 16px 12px;
+}
+.wtcSection {
+  margin: 12px 0;
+}
+
+.wtcLabel {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--dark-brown);
+  margin-bottom: 10px;
+}
+
+.wtcList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wtcItem {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.wtcTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--dark-brown);
+  line-height: 1.45;
+}
+
+/* 보조줄 */
+.wtcLines {
+  margin-top: 6px;
+}
+.wtcLine {
+  font-size: 1.1rem;
+  color: var(--muted-brown);
+  line-height: 1.5;
+  word-break: keep-all;
 }
