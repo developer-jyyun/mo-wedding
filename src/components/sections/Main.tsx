@@ -11,7 +11,7 @@ export default function Main() {
         <div className={cx('main')}>
           <div className={cx('title-box')}>
             <p>Welcome</p>
-            <p>to </p>
+            <p> to</p>
             <p>Our</p>
             <p>Wedding !</p>
           </div>

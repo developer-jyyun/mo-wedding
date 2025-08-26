@@ -1,42 +1,4 @@
 //TODO:: 미사용폰트 제거 및 사용폰트 다운로드/압축하기
-@font-face {
-  font-family: 'ROEHOE-CHAN';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/ROEHOE-CHAN.woff')
-    format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Manse';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Manse.woff')
-    format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'iceJaram-Rg';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/iceJaram-Rg.woff2')
-    format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'InkLipquid';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/InkLipquid.woff')
-    format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Ownglyph_ryurue-Rg';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_ryurue-Rg.woff2')
-    format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
 
 // 이롭게 바탕체
 @font-face {
@@ -47,20 +9,14 @@
     url('../assets/fonts/IropkeBatangM.ttf') format('truetype');
 }
 
-// FingerPaint
-@font-face {
-  font-family: 'Finger Paint';
-  src:
-    url('../assets/fonts/FingerPaint-Regular.ttf') format('woff2'),
-    url('../assets/fonts/FingerPaint-Regular.woff') format('woff'),
-    url('../assets/fonts/FingerPaint-Regular.ttf') format('truetype');
-}
+//   font-family: "Lobster", sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Playwrite+BE+WAL:wght@100..400&display=swap');
 
-// 따악단단
+//리디바탕
 @font-face {
-  font-family: 'NanumDdaAgDanDan';
-  src:
-    url('../assets/fonts/NanumDdaAgDanDan.ttf') format('woff2'),
-    url('../assets/fonts/NanumDdaAgDanDan.woff') format('woff'),
-    url('../assets/fonts/NanumDdaAgDanDan.ttf') format('truetype');
+  font-family: 'Ridibatang';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff')
+    format('woff');
+  font-weight: normal;
+  font-display: swap;
 }

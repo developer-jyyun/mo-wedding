@@ -1,31 +1,28 @@
 .container {
   padding-top: 14rem;
   .main {
-    // font-family: 'Finger Paint';
-    font-family: 'ROEHOE-CHAN';
-
-    // font-family: 'Manse';
-    // font-family: 'iceJaram-Rg';
-    // font-family: 'InkLipquid';
-
+    font-family: 'Lobster', sans-serif;
     position: relative;
     color: #69a66f;
     img {
-      width: 80%;
+      width: 85%;
       margin: 0 auto;
       position: relative;
-      left: 20%;
+      left: 15%;
       z-index: 0;
     }
     .title-box {
-      font-size: 6rem;
+      font-size: 10rem;
       position: absolute;
-      top: -54px;
+      top: -20px;
       left: 0;
-      line-height: 100px;
+      line-height: 136px;
       text-align: left;
       margin: 0 auto;
       z-index: 1;
+      :nth-child(2) {
+        margin-left: 2rem;
+      }
     }
   }
 }
