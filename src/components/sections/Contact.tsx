@@ -7,7 +7,8 @@ import { PiPhoneCallFill } from 'react-icons/pi'
 import { TbMessage } from 'react-icons/tb'
 import { handleCall, handleMessage } from '@/utils/ContactActions'
 import PersonGroup from '@common/PersonGroup'
-import styles from '@/components/sections/Contact.module.scss'
+import styles from './Contact.module.scss'
+
 const cx = classNames.bind(styles)
 
 interface Props {

@@ -1,19 +1,16 @@
-// src/components/common/PersonGroup.tsx
 import classNames from 'classnames/bind'
-import styles from './PersonItem.module.scss' // ✅ 그대로 유지
-import ContactItem from './ContactItem' // ✅ 교체 포인트
+import commonStyles from './PersonItem.module.scss' // 공통(레이아웃 최소)
+import ContactItem from '@/components/sections/ContactItem'
 import { Person } from '@models/wedding'
 
-const cx = classNames.bind(styles)
+const cx = classNames.bind(commonStyles)
 
 interface PersonGroupProps {
   side: 'groom' | 'bride'
   role: { type: string; main: string; sub?: string }
   name: string
   parents: Person[]
-  /** 본인(신랑/신부) 아이콘 */
   selfActions?: JSX.Element[]
-  /** 부모 아이콘 빌더 */
   actions: (person: Person) => JSX.Element[]
 }
 
@@ -28,7 +25,7 @@ export default function PersonGroup({
   const sideLabel = side === 'groom' ? '신랑' : '신부'
 
   return (
-    <div className={cx('person-group')}>
+    <div className={cx('person-group', side)}>
       {/* 본인 */}
       <ContactItem role={role} name={name} actions={selfActions} />
 

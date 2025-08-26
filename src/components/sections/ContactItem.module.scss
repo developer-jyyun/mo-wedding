@@ -1,0 +1,39 @@
+/* 연락처 전용 오버라이드 */
+.person-wrap {
+  margin: 2rem auto;
+}
+
+/* 제목(신랑측/신부측) */
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--accent, var(--dark-brown));
+  color: var(--accent, var(--muted-brown));
+
+  .sub-title {
+    opacity: 0.6;
+  }
+}
+
+/* 강조색 적용 */
+.name {
+  color: var(--accent, var(--muted-brown));
+}
+
+.icon-wrap {
+  svg {
+    color: var(--accent, var(--muted-brown));
+    width: 1.1em;
+    height: 1.1em;
+  }
+}
+
+/* 안전하게 섹션 모듈에서도 변수 주입 */
+.groom {
+  --accent: var(--skyblue);
+}
+.bride {
+  --accent: var(--muted-pink);
+}
