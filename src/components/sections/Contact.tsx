@@ -27,6 +27,8 @@ const actions = (phoneNumber?: string): ReactElement[] => {
 export default function Contact({ groom, bride }: Props) {
   return (
     <Section className={cx('container')}>
+      <img className={cx('img')} src="/assets/images/wd02.jpg" alt="이미지" />
+
       <div className={cx('contact-header')}>
         <p>
           <span className={cx('name')}>

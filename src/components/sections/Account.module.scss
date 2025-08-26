@@ -1,0 +1,70 @@
+.container {
+  padding-bottom: 2rem;
+  text-align: center;
+}
+
+.desc {
+  color: var(--muted-brown);
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  margin-bottom: 4rem;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  //   gap: 1rem;
+}
+
+/* 연락처처럼 측 색상 주입 + 헤더 배경용 변수 */
+.groom {
+  --accent: var(--skyblue);
+  --account-header-bg: color-mix(in srgb, var(--skyblue) 16%, #fff);
+  --account-header-fg: color-mix(
+    in srgb,
+    var(--skyblue) 80%,
+    var(--skyblue) 20%
+  );
+}
+.bride {
+  --accent: var(--muted-pink);
+  --account-header-bg: color-mix(in srgb, var(--muted-pink) 16%, #fff);
+  --account-header-fg: color-mix(
+    in srgb,
+    var(--muted-rose) 80%,
+    var(--muted-rose) 20%
+  );
+}
+
+/* ▼ Accordion 헤더 pill → 전체폭 바로 오버라이드 */
+:global(.accordion-account) :global(.wrap-accoridon) {
+  display: block;
+  width: 100%;
+}
+:global(.accordion-account) :global(.wrap-header) {
+  width: 100%;
+  margin: 0;
+  padding: 1.2rem 1.6rem;
+  border: none;
+  border-radius: 0;
+  background: var(--account-header-bg, #f7f1e8);
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+:global(.accordion-account) :global(.wrap-header) > span {
+  color: var(--dark-brown);
+  font-weight: 700;
+}
+:global(.accordion-account) :global(.ico-arrow-down) {
+  color: var(--dark-brown);
+  margin-left: 0.6rem;
+}
+
+/* 본문 여백/배경 (원하면 배경 제거 가능) */
+:global(.accordion-account) :global(.wrap-content) {
+  padding: 1.2rem 1rem 1.6rem;
+  background: #fff;
+  border-radius: 0 0 1rem 1rem;
+}

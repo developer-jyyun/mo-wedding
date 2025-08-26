@@ -12,7 +12,6 @@ import Calendar from '@components/sections/Calendar'
 import Map from '@components/sections/Map'
 import Contact from '@components/sections/Contact'
 import Account from '@components/sections/Account'
-
 const cx = classNames.bind(styles)
 function App() {
   const [wedding, setWedding] = useState<Wedding | null>(null)
@@ -67,13 +66,14 @@ function App() {
         locationName={location.name}
         date={date}
       />
+      <Contact groom={groom} bride={bride} />
+
       <ImageGallery images={galleryImages} />
       <Video />
+
       <Calendar date={date} />
       <Map location={location} />
-      <Contact groom={groom} bride={bride} />
-      {/* {JSON.stringify(wedding)} */}
-      {/* <Account groom={groom} bride={bride} /> */}
+      <Account groom={groom} bride={bride} />
     </div>
   )
 }

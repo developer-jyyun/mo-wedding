@@ -1,23 +1,29 @@
+/* 기존 내용 유지 */
 .wrap-accoridon {
   margin: 1rem auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   .wrap-header {
     margin: 2rem auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: fit-content;
+    width: fit-content; /* ← 기본 pill */
     border-radius: 50px;
     cursor: pointer;
     padding: 0.6rem 2rem;
     border: 1px solid var(--muted-brown);
     color: var(--muted-brown);
+    > span {
+      color: var(--account-header-fg, var(--dark-brown));
+      font-weight: 700;
+    }
     .ico-arrow-down {
-      width: 20px;
-      height: 20px;
+      color: var(--account-header-fg, var(--dark-brown));
+      margin-left: 0.6rem;
     }
   }
 
@@ -40,6 +46,47 @@
     border-radius: 1rem;
   }
 }
+
+/* ────────────────────────────────────────────── */
+/*  (pill → 바) */
 .accordion-account {
-  background-color: #00ff;
+  .wrap-header {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 auto;
+    padding: 1.2rem 1.6rem;
+    border: 1px solid var(--light-gray);
+    border-radius: 1rem; /* 상하 모두 둥글게(닫힌 상태) */
+    background-color: var(--account-header-bg, var(--dark-brown));
+    color: var(--account-header-fg, var(--dark-brown));
+    box-shadow: none;
+    justify-content: center;
+  }
+  .ico-arrow-down {
+    color: var(--account-header-fg, var(--dark-brown));
+    margin-left: 0.6rem;
+  }
+}
+
+/* 열렸을 때 경계 처리 */
+.wrap-accoridon.open.accordion-account {
+  .wrap-header {
+    /*  하단 라운드 제거(상단만 둥글게) */
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    /*  경계선은 헤더 쪽을 유지, 본문은 위쪽 선 제거 */
+    /* (아래 .wrap-content에서 border-top: none 설정) */
+  }
+  .wrap-content {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1.2rem 1rem 1.6rem;
+    background: #fff;
+    border: 1px solid var(--light-gray);
+    border-top: none; /* 헤더와 겹치지 않게 */
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem; /* ▼ 하단만 둥글게 */
+  }
 }
