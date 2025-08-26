@@ -1,4 +1,3 @@
-// src/components/sections/Account.tsx
 import classNames from 'classnames/bind'
 import styles from './Account.module.scss'
 import Section from '@common/Section'

@@ -11,9 +11,7 @@ interface Props {
   accountNumber?: string
   roleText: string
   name: string
-  /** 1행(이름 라인) 오른쪽 액션: 카카오페이 등 */
   nameActions?: ReactNode
-  /** 2행(계좌 라인) 오른쪽 액션: 복사 등 */
   accountActions?: ReactNode
 }
 
