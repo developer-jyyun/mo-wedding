@@ -1,0 +1,70 @@
+/* 컨테이너: 화면 전체(포인터 이벤트는 내부 토스트만) */
+.container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2147483647;
+}
+
+/* 공통 토스트 박스 */
+.toast {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  background: #ffffff;
+  color: #2f3540;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  backdrop-filter: saturate(140%) blur(6px);
+
+  opacity: 0;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+  max-width: 480px; /* JS에서 덮어씀 */
+  pointer-events: auto; /* 토스트 클릭 시 닫힘 */
+}
+
+.text {
+  white-space: pre-line; /* \n을 줄바꿈으로 처리 */
+  font-family: 'Ridibatang';
+  line-height: 2;
+  color: var(--cool-gray);
+}
+/* 위치 변형 */
+.top {
+  top: 16px;
+}
+.middle {
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.bottom {
+  bottom: 24px;
+}
+
+/* 보여질 때 */
+.show {
+  opacity: 1;
+  transform: translateX(-50%);
+}
+.middle.show {
+  transform: translate(-50%, -50%);
+}
+
+/* 모바일에서 약간 더 큼 */
+@media (max-width: 480px) {
+  .toast {
+    font-size: 15px;
+    border-radius: 14px;
+    padding: 12px 16px;
+  }
+}

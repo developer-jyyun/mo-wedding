@@ -1,10 +1,13 @@
+import { ReactElement } from 'react'
 import classNames from 'classnames/bind'
 import styles from './Contact.module.scss'
 import Section from '@common/Section'
 import { Wedding } from '@models/wedding'
-
-import PersonItem from '@common/PersonItem'
 import Accordion from '@common/Accordion'
+import { PiPhoneCallFill } from 'react-icons/pi'
+import { TbMessage } from 'react-icons/tb'
+import { handleCall, handleMessage } from '@/utils/ContactActions'
+import PersonGroup from '../common/PersonGroup'
 
 const cx = classNames.bind(styles)
 
@@ -12,6 +15,15 @@ interface Props {
   groom: Wedding['groom']
   bride: Wedding['bride']
 }
+
+const actions = (phoneNumber?: number): ReactElement[] => {
+  if (!phoneNumber) return []
+  return [
+    <PiPhoneCallFill key="call" onClick={() => handleCall(phoneNumber)} />,
+    <TbMessage key="message" onClick={() => handleMessage(phoneNumber)} />,
+  ]
+}
+
 export default function Contact({ groom, bride }: Props) {
   return (
     <Section className={cx('container')}>
@@ -30,45 +42,30 @@ export default function Contact({ groom, bride }: Props) {
         </p>
       </div>
 
-      <Accordion label="연락처">
+      <Accordion label="연락처" variant="contact">
         <div className={cx('contact-contents')}>
+          {/* 신랑측 */}
           <div className={cx('groom')}>
-            <PersonItem
+            <PersonGroup
+              side="groom"
               role={{ type: 'self', main: '신랑', sub: 'groom' }}
               name={groom.name}
-              phoneNumber={groom.phoneNumber}
-              iconType="contact"
+              selfActions={actions(groom.phoneNumber)}
+              parents={groom.parents}
+              actions={(p) => actions(p.phoneNumber)}
             />
-            {groom.parents.map((parent, idx) => {
-              return (
-                <PersonItem
-                  key={idx}
-                  role={{ type: 'parent', main: `신랑의 ${parent.relation}` }}
-                  name={parent.name}
-                  phoneNumber={parent.phoneNumber}
-                  iconType="contact"
-                />
-              )
-            })}
           </div>
+
+          {/* 신부측 */}
           <div className={cx('bride')}>
-            <PersonItem
+            <PersonGroup
+              side="bride"
               role={{ type: 'self', main: '신부', sub: 'bride' }}
               name={bride.name}
-              phoneNumber={bride.phoneNumber}
-              iconType="contact"
+              selfActions={actions(bride.phoneNumber)}
+              parents={bride.parents}
+              actions={(p) => actions(p.phoneNumber)}
             />
-            {bride.parents.map((parent, idx) => {
-              return (
-                <PersonItem
-                  key={idx}
-                  role={{ type: 'parent', main: `신부의 ${parent.relation}` }}
-                  name={parent.name}
-                  phoneNumber={parent.phoneNumber}
-                  iconType="contact"
-                />
-              )
-            })}
           </div>
         </div>
       </Accordion>

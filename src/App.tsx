@@ -5,12 +5,13 @@ import FullScreenMessage from '@common/FullScreenMessage'
 import Video from './components/sections/Video'
 import ImageGallery from './components/sections/ImageGallery'
 import Intro from '@components/sections/Intro'
-import Heading from '@components/sections/Heading'
+// import Heading from '@components/sections/Heading'
 import { Wedding } from '@models/wedding'
 import Main from '@components/sections/Main'
 import Calendar from '@components/sections/Calendar'
 import Map from '@components/sections/Map'
 import Contact from '@components/sections/Contact'
+import Account from '@components/sections/Account'
 
 const cx = classNames.bind(styles)
 function App() {
@@ -59,7 +60,7 @@ function App() {
 
   return (
     <div className={cx('container')}>
-      <Heading date={date} groomName={groom.name} brideName={bride.name} />
+      {/* <Heading date={date} groomName={groom.name} brideName={bride.name} /> */}
       <Main />
       <Intro
         invitation={message.invitation}
@@ -72,6 +73,7 @@ function App() {
       <Map location={location} />
       <Contact groom={groom} bride={bride} />
       {/* {JSON.stringify(wedding)} */}
+      {/* <Account groom={groom} bride={bride} /> */}
     </div>
   )
 }

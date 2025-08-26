@@ -1,53 +1,36 @@
-import styles from './PersonItem.module.scss'
+import React, { ReactNode } from 'react'
 import classNames from 'classnames/bind'
-import { PiPhoneCallFill } from 'react-icons/pi'
-import { TbMessage } from 'react-icons/tb'
-import IconButton from '@common/IconButton'
-import { handleCall, handleMessage } from '@/utils/ContactActions'
-
-interface PersonItemProps {
-  role: { type: string; main: string; sub?: string }
-  name: string
-
-  iconType: 'contact' | 'account'
-  phoneNumber: number
-}
+import styles from './PersonItem.module.scss'
 
 const cx = classNames.bind(styles)
 
-export default function PersonItem({
-  role,
-  name,
-  phoneNumber,
+export type Role = { type: string; main: string; sub?: string }
 
-  iconType,
-}: PersonItemProps) {
+export interface PersonItemProps {
+  role: Role
+  name: string
+  /** 연락/계좌 아이콘들을 외부에서 만들어 넣는 슬롯 */
+  actions?: ReactNode
+  /** 과거 코드 호환용(지금은 쓰지 않아도 되게 optional 처리) */
+  iconType?: 'contact' | 'account'
+  phoneNumber?: number
+}
+
+export default function PersonItem({ role, name, actions }: PersonItemProps) {
   return (
     <div className={cx('person-wrap')}>
       {role.type === 'self' && (
         <h3 className={cx('title')}>
-          {role.main}측 <span className={cx('sub-title')}> {role.sub}</span>
+          {role.main}측 <span className={cx('sub-title')}>{role.sub}</span>
         </h3>
       )}
+
       <div className={cx('person-item')}>
-        <p>
-          <span>{role.main}&nbsp;</span>
-          <span className={cx('name')}>{name}&nbsp;</span>
-        </p>
-        <ul className={cx('icon-wrap')}>
-          {iconType === 'contact' && phoneNumber && (
-            <>
-              <IconButton
-                icon={<PiPhoneCallFill />}
-                onClick={() => handleCall(phoneNumber)}
-              />
-              <IconButton
-                icon={<TbMessage />}
-                onClick={() => handleMessage(phoneNumber)}
-              />
-            </>
-          )}
-        </ul>
+        <div className={cx('text')}>
+          <span className={cx('label')}>{role.main}</span>
+          <span className={cx('name')}>{name}</span>
+        </div>
+        <ul className={cx('icon-wrap')}>{actions}</ul>
       </div>
     </div>
   )
