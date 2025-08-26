@@ -15,14 +15,14 @@
     border-radius: 50px;
     cursor: pointer;
     padding: 0.6rem 2rem;
-    border: 1px solid var(--muted-brown);
+    border: 1px solid var(--light-gray);
     color: var(--muted-brown);
     > span {
-      color: var(--account-header-fg, var(--dark-brown));
-      font-weight: 700;
+      color: var(--account-header-fg, var(--muted-brown));
+      font-weight: 600;
     }
     .ico-arrow-down {
-      color: var(--account-header-fg, var(--dark-brown));
+      color: var(--account-header-fg, var(--muted-brown));
       margin-left: 0.6rem;
     }
   }
