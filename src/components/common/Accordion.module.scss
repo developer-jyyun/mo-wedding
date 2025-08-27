@@ -1,3 +1,8 @@
+:root {
+  --acc-duration: 520ms;
+  --acc-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
 /* 기존 내용 유지 */
 .wrap-accoridon {
   margin: 1rem auto;
@@ -17,6 +22,7 @@
     padding: 0.6rem 2rem;
     border: 1px solid var(--light-gray);
     color: var(--muted-brown);
+
     > span {
       color: var(--account-header-fg, var(--muted-brown));
       font-weight: 600;
@@ -24,11 +30,30 @@
     .ico-arrow-down {
       color: var(--account-header-fg, var(--muted-brown));
       margin-left: 0.6rem;
+      /* ▼ 회전만 부드럽게 (모양/색상은 기존 그대로) */
+      transition: transform var(--acc-duration) var(--acc-ease);
+      will-change: transform;
     }
   }
 
+  /* ▼ 슬라이드 애니메이션: display:none 대신 0fr → 1fr 전환 */
   .wrap-content {
-    display: none;
+    display: grid;
+    grid-template-rows: 0fr; /* 닫힘: 높이 0 */
+    transition: grid-template-rows var(--acc-duration) var(--acc-ease);
+    width: 100%;
+    overflow: hidden;
+  }
+  /* 자식 컨테이너를 안전하게 클리핑 + 은은한 페이드/살짝 위에서 내려옴 */
+  .wrap-content > * {
+    min-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition:
+      opacity var(--acc-duration) var(--acc-ease),
+      transform var(--acc-duration) var(--acc-ease);
+    will-change: opacity, transform;
   }
 }
 
@@ -39,11 +64,15 @@
     }
   }
   .wrap-content {
-    background-color: #ffffffa9;
-    display: block;
+    grid-template-rows: 1fr; /* ← 열림: 컨텐츠 본높이 */
+    background-color: #ffffffa9; /* 기존 스타일 유지 */
     width: 95%;
     padding: 1rem 2rem;
     border-radius: 1rem;
+  }
+  .wrap-content > * {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -71,11 +100,8 @@
 /* 열렸을 때 경계 처리 */
 .wrap-accoridon.open.accordion-account {
   .wrap-header {
-    /*  하단 라운드 제거(상단만 둥글게) */
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    /*  경계선은 헤더 쪽을 유지, 본문은 위쪽 선 제거 */
-    /* (아래 .wrap-content에서 border-top: none 설정) */
   }
   .wrap-content {
     box-sizing: border-box;

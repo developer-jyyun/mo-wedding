@@ -21,7 +21,7 @@ export default function Main() {
           zIndex={0}
         />
         <div className={cx('main')}>
-          <div className={cx('titleBox', 'revealTitle')}>
+          <div className={cx('titleBox')}>
             <p>Welcome</p>
             <p> to</p>
             <p>Our</p>
