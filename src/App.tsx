@@ -70,7 +70,8 @@ function App() {
       <ImageGallery images={galleryImages} />
       <Video />
 
-      <Calendar date={date} />
+      <Calendar date={date} groomName={groom.name} brideName={bride.name} />
+
       <Map location={location} />
       <Account groom={groom} bride={bride} />
     </div>

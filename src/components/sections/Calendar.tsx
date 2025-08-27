@@ -6,14 +6,17 @@ import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
 
 import styles from './Calendar.module.scss'
+import Countdown from './../common/Countdown'
 
 const cx = classNames.bind(styles)
 //TODO:: 캘린더 반응형 및 디테일한 부분 스타일링
 
 interface Props {
   date: string
+  groomName: string
+  brideName: string
 }
-export default function Calendar({ date }: Props) {
+export default function Calendar({ date, groomName, brideName }: Props) {
   const weddingDate = parseISO(date)
   console.log(weddingDate)
 
@@ -29,12 +32,18 @@ export default function Calendar({ date }: Props) {
           </span>
         </div>
         <style>{css}</style>
+
         <DayPicker
           mode="single"
           locale={ko}
           month={weddingDate}
           selected={weddingDate}
           formatters={{ formatCaption: () => '' }}
+        />
+        <Countdown
+          target={weddingDate}
+          names={`${groomName} ♥ ${brideName}`}
+          label="결혼식"
         />
       </Section>
     </>

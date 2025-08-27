@@ -1,0 +1,86 @@
+:root {
+  --cd-bg: #ffffff;
+  --cd-fg: var(--muted-brown, #6b5a4a);
+  --cd-muted: color-mix(in srgb, var(--cd-fg) 55%, #bbb);
+  --cd-accent: var(--muted-rose, #c97f8c);
+  --cd-shadow: 0 8px 26px rgba(0, 0, 0, 0.06);
+}
+
+.countdown {
+  text-align: center;
+  color: var(--cd-fg);
+  margin: 2rem auto 4rem;
+}
+
+.timer {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 0.8rem;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.box {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  padding: 0.4rem 0.6rem;
+  border-radius: 9px;
+  background: var(--cd-bg);
+  box-shadow: var(--cd-shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 콜론 */
+.box:not(:last-child)::after {
+  content: ':';
+  position: absolute;
+  right: -0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 600;
+  color: var(--cd-muted);
+}
+
+.num {
+  font-weight: 700;
+  font-size: 1.8rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.unit {
+  margin-top: 0.28rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--cd-muted);
+}
+
+.sentence {
+  margin-top: 1.6rem;
+  font-size: 1.2rem;
+}
+
+.accent {
+  color: var(--cd-accent);
+  font-weight: 700;
+}
+.names {
+  font-weight: 700;
+}
+.label {
+  font-weight: 700;
+}
+
+@media (max-width: 360px) {
+  .box {
+    width: 56px;
+    height: 56px;
+  }
+  .num {
+    font-size: 1.6rem;
+  }
+}
