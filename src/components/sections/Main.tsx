@@ -13,10 +13,10 @@ export default function Main() {
         <BgmToggle
           src="/assets/audio/bgm.mp3"
           initiallyOn
-          initialVolume={0.16} // 더 작게: 0.08~0.12
-
-          // autoDuckOnMedia          // 다른 미디어 재생 시 자동 조정 원하면 켜기
-          // duckMode="duck" duckVolume={0.03}
+          initialVolume={0.28}
+          startAt={0.3}
+          fadeMs={120}
+          rememberMuted
         />
         {/* <FallingFX mode="snow" density={0.8} wind={6} zIndex={1} /> */}
         <FallingFX

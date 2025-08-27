@@ -13,6 +13,8 @@ type Props = {
   initiallyOn?: boolean
   initialVolume?: number
   rememberMuted?: boolean
+  startAt?: number // 시작 무음 스킵용(초)
+  fadeMs?: number // 언뮤트 시 페이드인(ms)
 }
 
 export default function BgmToggle({
@@ -21,8 +23,9 @@ export default function BgmToggle({
   initiallyOn = true,
   initialVolume = 0.24,
   rememberMuted = true,
+  startAt = 0,
+  fadeMs = 180,
 }: Props) {
-  // 원하는(저장된) 음소거 상태를 먼저 계산해서 ref/state에 넣는다.
   const initialDesiredMuted: boolean = (() => {
     if (!rememberMuted) return !initiallyOn
     const saved = localStorage.getItem('bgm-muted')
@@ -33,8 +36,22 @@ export default function BgmToggle({
   const [mutedUI, setMutedUI] = useState<boolean>(initialDesiredMuted)
   const [ready, setReady] = useState(false)
 
+  const ensurePreload = (url: string) => {
+    const id = '__bgm_preload__'
+    if (document.getElementById(id)) return
+    const link = document.createElement('link')
+    link.id = id
+    link.rel = 'preload'
+    link.as = 'audio'
+    link.href = url
+    document.head.appendChild(link)
+  }
+
   useEffect(() => {
-    // 전역 싱글톤 오디오 확보
+    const abs = new URL(src, window.location.href).href
+    ensurePreload(abs)
+
+    // 전역 싱글톤 확보
     let audio = window.__bgmAudio
     if (!audio) {
       audio = window.__bgmAudio = new Audio()
@@ -44,42 +61,58 @@ export default function BgmToggle({
       document.body.appendChild(audio)
     }
 
-    // src 세팅(같으면 건드리지 않음)
-    const abs = new URL(src, window.location.href).href
+    // 소스 지정
     if (audio.src !== abs) audio.src = abs
 
-    // 부트: 항상 muted로 먼저 재생해서 버퍼링 선행
+    // 항상 무음으로 먼저 재생(버퍼링 선행)
     audio.volume = Math.max(0, Math.min(1, initialVolume))
     audio.muted = true
+    audio.load()
 
-    const start = async () => {
-      try {
-        await audio!.play()
-      } catch {
-        /* iOS 정책: 무음 재생만 허용일 수 있음 */
-      }
-      setReady(true)
-    }
-    start()
+    const onCanPlay = () => setReady(true)
+    audio.addEventListener('canplaythrough', onCanPlay, { once: true })
+    audio.play().catch(() => {}) // iOS에서도 무음재생은 허용
 
-    // 첫 사용자 제스처에서 원하는 상태로 즉시 전환
+    // 첫 사용자 제스처에서 즉시 들리게
     const unlock = () => {
-      const a = window.__bgmAudio
-      if (!a) return
-      a.muted = desiredMutedRef.current
-      if (!a.muted && a.paused) a.play().catch(() => {})
-      setMutedUI(desiredMutedRef.current)
+      const a = window.__bgmAudio!
+      if (startAt > 0 && a.currentTime < startAt - 0.05) {
+        try {
+          a.currentTime = startAt
+        } catch {}
+      }
+      if (desiredMutedRef.current) {
+        a.muted = true
+        setMutedUI(true)
+      } else {
+        a.muted = false
+        a.play().catch(() => {})
+        if (fadeMs > 0) {
+          const target = initialVolume
+          const start = performance.now()
+          a.volume = 0
+          const tick = (t: number) => {
+            const k = Math.min(1, (t - start) / fadeMs)
+            a.volume = target * k
+            if (k < 1) requestAnimationFrame(tick)
+          }
+          requestAnimationFrame(tick)
+        } else {
+          a.volume = initialVolume
+        }
+        setMutedUI(false)
+      }
       window.removeEventListener('pointerdown', unlock)
     }
     window.addEventListener('pointerdown', unlock, { once: true })
 
     return () => {
       window.removeEventListener('pointerdown', unlock)
-      // 싱글톤은 유지(언마운트 시 제거하지 않음)
+      // ← 여기만 수정: 전역 싱글톤에 안전하게 접근
+      window.__bgmAudio?.removeEventListener('canplaythrough', onCanPlay)
     }
-  }, [src, initialVolume, initiallyOn, rememberMuted])
+  }, [src, initialVolume, initiallyOn, rememberMuted, startAt, fadeMs])
 
-  // 토글
   const toggle = () => {
     desiredMutedRef.current = !desiredMutedRef.current
     const a = window.__bgmAudio
