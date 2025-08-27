@@ -71,12 +71,17 @@ function App() {
       <Contact groom={groom} bride={bride} />
 
       <ImageGallery images={galleryImages} />
-      <Video />
+      <Video sources="/assets/wedding.mp4" poster="/assets/poster.jpg" />
 
       <Calendar date={date} groomName={groom.name} brideName={bride.name} />
 
       <Map location={location} />
       <Account groom={groom} bride={bride} />
+      <Video
+        showTitle={false}
+        sources="/assets/wedding-intro.mp4"
+        poster="/assets/poster.jpg"
+      />
     </div>
   )
 }
