@@ -93,12 +93,13 @@ export default function BgmToggle({
           a.volume = 0
           const tick = (t: number) => {
             const k = Math.min(1, (t - start) / fadeMs)
-            a.volume = target * k
+            const newVolume = target * k
+            a.volume = Math.max(0, Math.min(1, newVolume)) //clamp 적용
             if (k < 1) requestAnimationFrame(tick)
           }
           requestAnimationFrame(tick)
         } else {
-          a.volume = initialVolume
+          a.volume = Math.max(0, Math.min(1, initialVolume)) //clamp 적용
         }
         setMutedUI(false)
       }
@@ -108,7 +109,6 @@ export default function BgmToggle({
 
     return () => {
       window.removeEventListener('pointerdown', unlock)
-      // ← 여기만 수정: 전역 싱글톤에 안전하게 접근
       window.__bgmAudio?.removeEventListener('canplaythrough', onCanPlay)
     }
   }, [src, initialVolume, initiallyOn, rememberMuted, startAt, fadeMs])

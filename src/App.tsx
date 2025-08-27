@@ -12,7 +12,8 @@ import Calendar from '@components/sections/Calendar'
 import Map from '@components/sections/Map'
 import Contact from '@components/sections/Contact'
 import Account from '@components/sections/Account'
-import Heading from './components/sections/Heading'
+// import Heading from './components/sections/Heading'
+import FloatingActions from './components/common/FloatingAction'
 
 const cx = classNames.bind(styles)
 
@@ -82,6 +83,14 @@ function App() {
         sources="/assets/wedding-intro.mp4"
         poster="/assets/poster.jpg"
       />
+      {wedding && (
+        <FloatingActions
+          title={`${wedding.groom.name} ♥ ${wedding.bride.name} 결혼식`}
+          description={wedding.message?.invitation ?? '초대합니다.'}
+          imageUrl="/assets/og.jpg" // 배포 이미지
+          // shareUrl={특정 URL이 있으면 지정}
+        />
+      )}
     </div>
   )
 }
