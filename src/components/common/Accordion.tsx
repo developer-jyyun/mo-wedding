@@ -2,7 +2,6 @@ import styles from './Accordion.module.scss'
 import classNames from 'classnames/bind'
 import { PropsWithChildren, useState } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
-
 const cx = classNames.bind(styles)
 
 interface AccordionProps {
