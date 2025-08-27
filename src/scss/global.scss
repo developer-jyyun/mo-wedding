@@ -31,6 +31,13 @@
   box-sizing: border-box;
   font-family: 'IropkeBatangM', 'Ridibatang', sans-serif;
 }
+html,
+body,
+#root {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 html {
   font-size: 62.5%;
 }
