@@ -75,11 +75,7 @@ function App() {
 
       <Map location={location} />
       <Account groom={groom} bride={bride} />
-      <Video
-        showTitle={false}
-        sources="/assets/wedding-intro.mp4"
-        poster="/assets/poster.jpg"
-      />
+
       {wedding && (
         <FloatingActions
           title={`${wedding.groom.name} ♥ ${wedding.bride.name} 결혼식`}
