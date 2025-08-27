@@ -12,6 +12,7 @@ import Calendar from '@components/sections/Calendar'
 import Map from '@components/sections/Map'
 import Contact from '@components/sections/Contact'
 import Account from '@components/sections/Account'
+import Heading from './components/sections/Heading'
 
 const cx = classNames.bind(styles)
 
@@ -59,6 +60,8 @@ function App() {
 
   return (
     <div className={cx('container')}>
+      {/* <Heading date={date} groomName={groom.name} brideName={bride.name} /> */}
+
       <Main />
       <Intro
         invitation={message.invitation}
