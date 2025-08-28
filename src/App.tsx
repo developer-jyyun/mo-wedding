@@ -47,7 +47,7 @@ function App() {
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [API_URL])
 
   if (loading) return <FullScreenMessage type="loading" />
   if (error)
