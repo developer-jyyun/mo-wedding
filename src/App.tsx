@@ -21,33 +21,26 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
-  const API_URL = process.env.REACT_APP_API_URL
-  console.log('✅ API_URL:', API_URL)
-
+  // const API_URL = process.env.REACT_APP_API_URL
+  // console.log('✅ API_URL:', API_URL)
   useEffect(() => {
     let cancelled = false
     setLoading(true)
 
-    fetch(`${API_URL}/wedding`)
-      .then((response) => {
-        if (!response.ok) throw new Error('청첩장 정보를 불러오지 못함')
-        return response.json()
-      })
+    fetch('/wedding.json')
+      .then((res) => res.json())
       .then((data) => {
-        if (!cancelled) setWedding(data)
+        if (!cancelled) {
+          setWedding(data.wedding) // ✅ wedding 키 안쪽만 저장
+        }
       })
-      .catch((e) => {
-        console.error('Error:', e)
-        if (!cancelled) setError(true)
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
+      .catch(() => setError(true))
+      .finally(() => setLoading(false))
 
     return () => {
       cancelled = true
     }
-  }, [API_URL])
+  }, [])
 
   if (loading) return <FullScreenMessage type="loading" />
   if (error)
@@ -57,7 +50,7 @@ function App() {
         text="에러가 발생했어요! 잠시 후 다시 시도해주세요."
       />
     )
-  if (wedding === null) return null
+  if (!wedding) return null // wedding이 null이면 바로 종료
 
   const { groom, bride, date, galleryImages, message, location } = wedding
 
@@ -83,8 +76,7 @@ function App() {
         <FloatingActions
           title={`${wedding.groom.name} ♥ ${wedding.bride.name} 결혼식`}
           description={wedding.message?.invitation ?? '초대합니다.'}
-          imageUrl="/assets/og.jpg" // 배포 이미지
-          // shareUrl={특정 URL이 있으면 지정}
+          imageUrl="/assets/og.jpg"
         />
       )}
     </div>
