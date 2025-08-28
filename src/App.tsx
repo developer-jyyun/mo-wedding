@@ -21,11 +21,14 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
+  const API_URL = process.env.REACT_APP_API_URL
+  console.log('✅ API_URL:', API_URL)
+
   useEffect(() => {
     let cancelled = false
     setLoading(true)
 
-    fetch('http://localhost:8888/wedding')
+    fetch(`${API_URL}/wedding`)
       .then((response) => {
         if (!response.ok) throw new Error('청첩장 정보를 불러오지 못함')
         return response.json()
