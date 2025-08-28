@@ -15,18 +15,24 @@ type ShareProps = {
   shareUrl?: string
 }
 
+/** Kakao Share SDK 로더 (한 번만 선언) */
 function useKakao(appKey?: string) {
   useEffect(() => {
-    if (!appKey) return
-    if (window.Kakao && window.Kakao.isInitialized?.()) return
+    if (!appKey) {
+      console.warn('Kakao JS key missing. Skip Kakao SDK.')
+      return
+    }
+    if (window.Kakao?.isInitialized?.()) return
+
     const s = document.createElement('script')
     s.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js'
     s.async = true
     s.onload = () => window.Kakao?.init(appKey)
+    s.onerror = () => console.error('Failed to load Kakao Share SDK')
     document.head.appendChild(s)
-    return () => {
-      /* keep sdk */
-    }
+
+    // SDK는 전역 1회 유지
+    return () => {}
   }, [appKey])
 }
 
@@ -36,7 +42,11 @@ export default function FloatingActions({
   imageUrl = '/assets/og.jpg',
   shareUrl,
 }: ShareProps) {
-  const kakaoKey = process.env.REACT_APP_KAKAO_JS_KEY
+  // env 이름 변경 이력 대비 폴백
+  const kakaoKey =
+    process.env.REACT_APP_KAKAO_JS_KEY ?? process.env.REACT_APP_KAKAO_KEY
+
+  // 반드시 호출
   useKakao(kakaoKey)
 
   const [showTop, setShowTop] = useState(false)
@@ -52,20 +62,30 @@ export default function FloatingActions({
   const shareDesc = description ?? '소중한 날에 초대합니다.'
 
   const onShareKakao = () => {
-    if (!window.Kakao?.isInitialized?.())
-      return alert('공유 준비 중입니다. 잠시 후 다시 시도해주세요.')
-    window.Kakao.Share.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: shareTitle,
-        description: shareDesc,
-        imageUrl: new URL(imageUrl, window.location.origin).href,
-        link: { mobileWebUrl: link, webUrl: link },
-      },
-      buttons: [
-        { title: '모바일로 보기', link: { mobileWebUrl: link, webUrl: link } },
-      ],
-    })
+    if (!window.Kakao?.isInitialized?.()) {
+      alert('공유 준비 중입니다. 잠시 후 다시 시도해주세요.')
+      return
+    }
+    try {
+      window.Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: shareTitle,
+          description: shareDesc,
+          imageUrl: new URL(imageUrl, window.location.origin).href,
+          link: { mobileWebUrl: link, webUrl: link },
+        },
+        buttons: [
+          {
+            title: '모바일로 보기',
+            link: { mobileWebUrl: link, webUrl: link },
+          },
+        ],
+      })
+    } catch (e) {
+      console.error('Kakao Share failed', e)
+      alert('카카오 공유를 실행할 수 없어요.')
+    }
   }
 
   const onShareWeb = async () => {
