@@ -4,7 +4,7 @@
 }
 
 /* 기존 내용 유지 */
-.wrap-accoridon {
+.wrap-accordion {
   margin: 1rem auto;
   display: flex;
   flex-direction: column;
@@ -57,7 +57,7 @@
   }
 }
 
-.wrap-accoridon.open {
+.wrap-accordion.open {
   .wrap-header {
     .ico-arrow-down {
       transform: rotate(-180deg);
@@ -98,7 +98,7 @@
 }
 
 /* 열렸을 때 경계 처리 */
-.wrap-accoridon.open.accordion-account {
+.wrap-accordion.open.accordion-account {
   .wrap-header {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;

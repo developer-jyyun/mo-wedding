@@ -21,7 +21,7 @@ export default function Accordion({
   return (
     <div
       className={cx([
-        'wrap-accoridon',
+        'wrap-accordion',
         expanded ? 'open' : '',
         variant ? `accordion-${variant}` : '',
       ])}
