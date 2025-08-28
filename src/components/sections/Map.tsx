@@ -20,7 +20,6 @@ interface Props {
 
 export default function Map({ location }: Props) {
   const mapContainer = useRef<HTMLDivElement | null>(null)
-  const [tab, setTab] = useState<'transit' | 'shuttle' | 'parking'>('transit')
   const [loading, setLoading] = useState(true) // 지도 로딩 상태
 
   // ─────────────────────────────
