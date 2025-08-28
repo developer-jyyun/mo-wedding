@@ -20,6 +20,7 @@ export default function FullScreenMessage({
       ) : (
         <>
           <TbFaceIdError className={cx('icon-error')} />
+          <br />
           <p>{text}</p>
         </>
       )}
