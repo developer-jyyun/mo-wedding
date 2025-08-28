@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { IoIosArrowUp } from 'react-icons/io'
-import { SiKakaotalk } from 'react-icons/si'
+import { RiKakaoTalkFill, RiShareFill } from 'react-icons/ri' // ✅ 아이콘 교체
+import styles from './FloatingAction.module.scss'
+import classNames from 'classnames/bind'
+const cx = classNames.bind(styles)
 
 declare global {
   interface Window {
@@ -31,7 +34,6 @@ function useKakao(appKey?: string) {
     s.onerror = () => console.error('Failed to load Kakao Share SDK')
     document.head.appendChild(s)
 
-    // SDK는 전역 1회 유지
     return () => {}
   }, [appKey])
 }
@@ -42,11 +44,8 @@ export default function FloatingActions({
   imageUrl = '/assets/og.jpg',
   shareUrl,
 }: ShareProps) {
-  // env 이름 변경 이력 대비 폴백
   const kakaoKey =
     process.env.REACT_APP_KAKAO_JS_KEY ?? process.env.REACT_APP_KAKAO_KEY
-
-  // 반드시 호출
   useKakao(kakaoKey)
 
   const [showTop, setShowTop] = useState(false)
@@ -102,36 +101,27 @@ export default function FloatingActions({
   const goTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        right: '12px',
-        bottom: 'calc(env(safe-area-inset-bottom, 8px) + 12px)',
-        display: 'flex',
-        gap: 8,
-        zIndex: 10000,
-      }}
-    >
+    <div className={cx('floatingActions')}>
       {/* 카카오톡 */}
       <button
         type="button"
         onClick={onShareKakao}
         aria-label="카카오톡으로 공유"
         title="카카오톡으로 공유"
-        style={btnStyle}
+        className={cx('btn')}
       >
-        <SiKakaotalk size={18} />
+        <RiKakaoTalkFill size={18} />
       </button>
 
-      {/* 브라우저 공유/복사(보조) */}
+      {/* 공유 (Web Share / 복사) */}
       <button
         type="button"
         onClick={onShareWeb}
         aria-label="공유/링크 복사"
         title="공유/링크 복사"
-        style={btnStyle}
+        className={cx('btn')}
       >
-        <span style={{ fontSize: 12, fontWeight: 700 }}>Share</span>
+        <RiShareFill size={18} />
       </button>
 
       {/* Top 버튼 */}
@@ -141,24 +131,11 @@ export default function FloatingActions({
           onClick={goTop}
           aria-label="맨 위로"
           title="맨 위로"
-          style={btnStyle}
+          className={cx('btn')}
         >
           <IoIosArrowUp size={20} />
         </button>
       )}
     </div>
   )
-}
-
-const btnStyle: React.CSSProperties = {
-  width: 40,
-  height: 40,
-  borderRadius: 999,
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  border: '1px solid var(--light-gray)',
-  background: 'rgba(255,255,255,.9)',
-  color: 'var(--muted-brown)',
-  boxShadow: '0 6px 16px rgba(0,0,0,.08)',
 }

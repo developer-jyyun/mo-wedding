@@ -1,0 +1,37 @@
+.floatingActions {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom, 8px) + 12px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10000;
+
+  // PC 모드 (480px 이상)
+  @media (min-width: 481px) {
+    left: 50%;
+    transform: translateX(280px);
+  }
+
+  // 모바일 (480px 이하)
+  @media (max-width: 480px) {
+    right: 12px;
+    transform: none;
+  }
+
+  .btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--light-gray);
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--muted-brown);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+}
