@@ -54,7 +54,6 @@
 - **Frontend**: React, TypeScript
 - **스타일링**: SCSS 모듈, CSS 커스텀 애니메이션
 - **유틸 및 상태관리**: 커스텀 Hooks & 유틸 (`toast`, `clipboardActions`, `bankActions` 등)
-- **폰트 리소스**: MaruBuri, Nanum, Cormorant, Corinthia 등
 - **배포 플랫폼**: Netlify
 
 ---
