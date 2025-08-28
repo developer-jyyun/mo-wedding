@@ -14,3 +14,45 @@
   border-radius: 10px;
   overflow: hidden;
 }
+/* Swiper 기본 네비게이션 버튼 */
+.swiper-button-prev,
+.swiper-button-next {
+  top: 50% !important; /* 이미지 세로 가운데 */
+  transform: translateY(-50%);
+  width: 34px !important;
+  height: 44px !important;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  color: rgba(97, 95, 95, 0.7) !important;
+  font-size: 2rem !important;
+  font-weight: bold;
+}
+.swiper-button-prev {
+  left: 20% !important;
+}
+.swiper-button-next {
+  right: 20% !important;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background: rgba(255, 255, 255, 0.7);
+  color: #8c6e63 !important;
+}
+
+/*  모바일 대응 */
+@media (max-width: 768px) {
+  .swiper-button-prev {
+    left: 2% !important;
+  }
+  .swiper-button-next {
+    right: 2% !important;
+  }
+}

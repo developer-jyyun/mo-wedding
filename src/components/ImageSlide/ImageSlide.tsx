@@ -1,5 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation } from 'swiper'
 import 'swiper/css'
+import 'swiper/css/navigation'
 import './swiper.css'
 import classNames from 'classnames/bind'
 import styles from './ImageSlide.module.scss'
@@ -23,22 +25,24 @@ export default function ImageSlide({
   if (!open) return null
 
   return (
-    <div className={cx('dim')}>
-      <FaWindowClose className={cx('close')} onClick={onClose} />
-      <Swiper
-        spaceBetween={20}
-        slidesPerView={1}
-        loop={true}
-        // ref={swiperRef}
-        initialSlide={selectedIdx}
-      >
-        {images.map((img) => (
-          <SwiperSlide key={img}>
-            <img src={img} alt="갤러리 이미지" />
-          </SwiperSlide>
-        ))}
-        ...
-      </Swiper>
-    </div>
+    <>
+      <div className={cx('dim')}>
+        <FaWindowClose className={cx('close')} onClick={onClose} />
+        <Swiper
+          spaceBetween={20}
+          slidesPerView={1}
+          loop={true}
+          initialSlide={selectedIdx}
+          modules={[Navigation]}
+          navigation
+        >
+          {images.map((img) => (
+            <SwiperSlide key={img}>
+              <img src={img} alt="갤러리 이미지" />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </>
   )
 }
