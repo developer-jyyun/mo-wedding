@@ -13,6 +13,7 @@ import Map from '@components/sections/Map'
 import Contact from '@components/sections/Contact'
 import Account from '@components/sections/Account'
 import FloatingActions from './components/common/FloatingAction'
+import Outro from './components/sections/Outro'
 
 const cx = classNames.bind(styles)
 
@@ -71,6 +72,7 @@ function App() {
 
       <Map location={location} />
       <Account groom={groom} bride={bride} />
+      <Outro />
       {wedding && (
         <FloatingActions
           title={`${wedding.groom.name} ♥ ${wedding.bride.name} 결혼식`}

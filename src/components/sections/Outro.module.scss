@@ -1,0 +1,48 @@
+.img {
+  width: 100%;
+}
+.text {
+  font-size: 4rem;
+  text-align: center;
+  margin: 4rem auto;
+}
+.top-text {
+  font-family: 'hurricaneregular', cursive;
+
+  font-size: 4rem;
+  text-align: center;
+  position: relative;
+  top: 0.7rem;
+  //   color: #cb9393;
+  color: #859d87;
+  background: linear-gradient(90deg, #859d87, #cfdac3, #859d87);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 6s ease infinite;
+  z-index: 0;
+}
+.main-text {
+  font-size: 2.4rem;
+  text-align: center;
+  font-family: 'abril_fatfaceregular', serif;
+  font-style: italic;
+  z-index: 1;
+  background: linear-gradient(90deg, #6f5959, #b19797, #6f5959);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 6s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
