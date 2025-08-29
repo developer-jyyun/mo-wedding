@@ -1,38 +1,107 @@
-.img {
-  width: 100%;
+.container {
+  position: relative;
+  text-align: center;
+  overflow: hidden; // glow 영역 넘칠 경우 대비
 }
+
 .text {
   font-size: 4rem;
-  text-align: center;
-  margin: 4rem auto;
+  margin-bottom: 5rem;
 }
+
 .top-text {
   font-family: 'hurricaneregular', cursive;
-
-  font-size: 4rem;
-  text-align: center;
-  position: relative;
-  top: 0.7rem;
-  //   color: #cb9393;
-  color: #859d87;
-  background: linear-gradient(90deg, #859d87, #cfdac3, #859d87);
+  font-size: 6rem;
+  background: linear-gradient(90deg, #3d9f6e, #9ddbb1, #3d9f6e);
   background-size: 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: gradientMove 6s ease infinite;
-  z-index: 0;
 }
+
 .main-text {
-  font-size: 2.4rem;
-  text-align: center;
+  font-size: 4.2rem;
   font-family: 'abril_fatfaceregular', serif;
   font-style: italic;
-  z-index: 1;
-  background: linear-gradient(90deg, #6f5959, #b19797, #6f5959);
+  font-weight: bold;
+  background: linear-gradient(160deg, #fb5454, #ffa77b, #f38080);
   background-size: 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: gradientMove 6s ease infinite;
+
+  p {
+    margin: 0;
+    line-height: 1.2;
+  }
+}
+
+.copy-text {
+  font-size: 1rem;
+  margin-top: 2.4rem;
+  font-style: italic;
+}
+
+.image-wrap {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 1;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    z-index: 1;
+
+    // 하단부 점점 투명해지는 마스크
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1),
+      transparent 98%
+    );
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), transparent 98%);
+    mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+  }
+}
+
+// -------------------- Glow 효과 --------------------
+.glow {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  width: 320px;
+  height: 320px;
+  border-radius: 50% 50% 0 0;
+  transform: translate(-50%, -40%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(253, 141, 163, 0.25) 0%,
+    rgba(255, 180, 120, 0.25) 30%,
+    rgba(255, 248, 180, 0.2) 60%,
+    transparent 90%
+  );
+  pointer-events: none;
+  filter: blur(25px);
+  animation: glowPulse 5s ease-in-out infinite;
+  z-index: -1;
+}
+
+// -------------------- 애니메이션 --------------------
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translate(-50%, -40%) scale(0.6);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -40%) scale(1);
+  }
 }
 
 @keyframes gradientMove {
