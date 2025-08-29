@@ -63,7 +63,7 @@ export default function Account({ groom, bride }: Props) {
 
       {/* 신랑측 */}
       <div className={cx('groom')}>
-        <Accordion label="신랑측 계좌번호" variant="account">
+        <Accordion label="신랑측 계좌번호" variant="account" defaultOpen>
           <div className={cx('group')}>
             {(() => {
               const a = buildActions(
@@ -107,7 +107,7 @@ export default function Account({ groom, bride }: Props) {
 
       {/* 신부측 */}
       <div className={cx('bride')}>
-        <Accordion label="신부측 계좌번호" variant="account">
+        <Accordion label="신부측 계좌번호" variant="account" defaultOpen>
           <div className={cx('group')}>
             {(() => {
               const a = buildActions(

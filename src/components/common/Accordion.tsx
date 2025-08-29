@@ -7,14 +7,16 @@ const cx = classNames.bind(styles)
 interface AccordionProps {
   label: string
   variant?: 'contact' | 'account'
+  defaultOpen?: boolean
 }
 
 export default function Accordion({
   label,
   children,
   variant,
+  defaultOpen = false,
 }: PropsWithChildren<AccordionProps>) {
-  const [expanded, setExpanded] = useState(false)
+  const [expanded, setExpanded] = useState(defaultOpen)
   const handleToggle = () => {
     setExpanded((prev) => !prev)
   }

@@ -20,12 +20,14 @@
     border-radius: 50px;
     cursor: pointer;
     padding: 0.6rem 2rem;
-    border: 1px solid var(--muted-brown);
+    border: 1px solid #af9e9e;
+    box-shadow: 0px 3px 2px #e1dcdc;
     color: var(--muted-brown);
-
+    background: rgba(210, 198, 198, 0.4);
     > span {
       color: var(--account-header-fg, var(--muted-brown));
       font-weight: 600;
+      font-size: 1.4rem;
     }
     .ico-arrow-down {
       color: var(--account-header-fg, var(--muted-brown));
