@@ -38,7 +38,7 @@
 .box:not(:last-child)::after {
   content: ':';
   position: absolute;
-  right: -0.9rem;
+  right: -0.6rem;
   top: 50%;
   transform: translateY(-50%);
   font-weight: 600;
