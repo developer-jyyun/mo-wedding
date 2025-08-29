@@ -6,7 +6,7 @@ import { Location } from '@models/wedding'
 import icoNaver from '@/assets/icons/ico_navernav.png'
 import icoTmap from '@/assets/icons/ico_tnav.png'
 import icoKakao from '@/assets/icons/ico_kakaonav.png'
-
+import WayToCome from '../common/WayToCome'
 declare global {
   interface Window {
     kakao: any
@@ -21,8 +21,8 @@ interface Props {
 export default function Map({ location }: Props) {
   const mapContainer = useRef<HTMLDivElement | null>(null)
   const [loading, setLoading] = useState(true) // 지도 로딩 상태
+  const [tab, setTab] = useState<'transit' | 'shuttle' | 'parking'>('transit')
 
-  // ─────────────────────────────
   // Kakao Map
   useEffect(() => {
     const KAKAO_MAP_KEY =
@@ -66,7 +66,6 @@ export default function Map({ location }: Props) {
     }
   }, [location])
 
-  // ─────────────────────────────
   // Nav apps
   const tryOpenApp = (appUrl: string, webUrl: string) => {
     const now = Date.now()
@@ -139,6 +138,59 @@ export default function Map({ location }: Props) {
           <img src={icoKakao} alt="" aria-hidden="true" />
           <span>카카오내비</span>
         </button>
+      </div>
+      {/* 탭 */}
+      <div className={cx('tabCard')}>
+        <div className={cx('tabInner')}>
+          <div
+            className={cx('tabBar')}
+            role="tablist"
+            aria-label="오시는길 안내"
+          >
+            <button
+              role="tab"
+              aria-selected={tab === 'transit'}
+              className={cx('tab', { active: tab === 'transit' })}
+              onClick={() => setTab('transit')}
+            >
+              대중교통
+            </button>
+            <button
+              role="tab"
+              aria-selected={tab === 'shuttle'}
+              className={cx('tab', { active: tab === 'shuttle' })}
+              onClick={() => setTab('shuttle')}
+            >
+              무료 셔틀버스
+            </button>
+            <button
+              role="tab"
+              aria-selected={tab === 'parking'}
+              className={cx('tab', { active: tab === 'parking' })}
+              onClick={() => setTab('parking')}
+            >
+              주차 안내
+            </button>
+          </div>
+
+          <div className={cx('tabPanel')} role="tabpanel">
+            {tab === 'transit' && (
+              <>
+                <WayToCome label="🚌 버스" list={location.waytocome.bus} />
+                <WayToCome label="🚃 지하철" list={location.waytocome.metro} />
+              </>
+            )}
+            {tab === 'shuttle' && (
+              <WayToCome
+                label="🚍 무료 셔틀버스"
+                list={location.waytocome.shuttle}
+              />
+            )}
+            {tab === 'parking' && (
+              <WayToCome label="🚗 주차" list={location.waytocome.car} />
+            )}
+          </div>
+        </div>
       </div>
     </Section>
   )
