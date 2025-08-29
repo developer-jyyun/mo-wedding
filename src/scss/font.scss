@@ -12,20 +12,29 @@
 //   font-family: "Lobster", sans-serif;
 @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Playwrite+BE+WAL:wght@100..400&display=swap');
 
-//리디바탕
 @font-face {
-  font-family: 'Ridibatang';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff')
-    format('woff');
+  font-family: 'lobsterregular';
+  src:
+    url('../assets/fonts/lobster-regular-webfont.woff2') format('woff2'),
+    url('../assets/fonts/lobster-regular-webfont.woff') format('woff');
   font-weight: normal;
-  font-display: swap;
+  font-style: normal;
 }
 
-//영월체
 @font-face {
-  font-family: 'Yeongwol';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2507-2@1.0/YeongwolTTF-Regular.woff2')
-    format('woff2');
+  font-family: 'abril_fatfaceregular';
+  src:
+    url('../assets/fonts/abrilfatface-regular-webfont.woff2') format('woff2'),
+    url('../assets/fonts/abrilfatface-regular-webfont.woff') format('woff');
   font-weight: normal;
-  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'hurricaneregular';
+  src:
+    url('../assets/fonts/hurricane-regular-webfont.woff2') format('woff2'),
+    url('../assets/fonts/hurricane-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }

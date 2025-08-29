@@ -65,18 +65,17 @@ function App() {
       <Contact groom={groom} bride={bride} />
 
       <ImageGallery images={galleryImages} />
-      <Video sources="/assets/wedding.mp4" poster="/assets/poster.jpg" />
+      <Video sources="/assets/wedding.mp4" poster="/assets/poster.webp" />
 
       <Calendar date={date} groomName={groom.name} brideName={bride.name} />
 
       <Map location={location} />
       <Account groom={groom} bride={bride} />
-
       {wedding && (
         <FloatingActions
           title={`${wedding.groom.name} ♥ ${wedding.bride.name} 결혼식`}
           description={wedding.message?.invitation ?? '초대합니다.'}
-          imageUrl="/assets/og.jpg"
+          imageUrl="/assets/og.webp"
         />
       )}
     </div>

@@ -41,7 +41,7 @@ function useKakao(appKey?: string) {
 export default function FloatingActions({
   title,
   description,
-  imageUrl = '/assets/og.jpg',
+  imageUrl = '/assets/og.webp',
   shareUrl,
 }: ShareProps) {
   const kakaoKey =

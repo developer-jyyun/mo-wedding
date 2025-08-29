@@ -36,7 +36,7 @@ export default function Main() {
             <p>Our</p>
             <p>Wedding!</p>
           </div>
-          <img src="/assets/images/wd03.jpg" alt="메인이미지" />
+          <img src="/assets/images/wd03.webp" alt="메인이미지" />
         </div>
       </Section>
     </>
