@@ -22,13 +22,13 @@ export default function Calendar({ date, groomName, brideName }: Props) {
 
   return (
     <>
-      <Section className={cx('container')}>
+      <Section className={cx('container')} title="WEDDING DAY">
         <div className={cx('header')}>
           <span className={cx('text-date')}>
-            {format(weddingDate, 'yyyy.MM.dd')}
+            {format(weddingDate, 'yyyy.MM.dd EEEE,', { locale: ko })}
           </span>
           <span className={cx('text-time')}>
-            {format(weddingDate, 'aaa h시 mm분 eeee', { locale: ko })}
+            {format(weddingDate, 'aaa h시 mm분', { locale: ko })}
           </span>
         </div>
         <style>{css}</style>
@@ -50,48 +50,61 @@ export default function Calendar({ date, groomName, brideName }: Props) {
   )
 }
 const css = `
-.rdp-root{
-    width:100%;
-    height:100%;
-    display: flex;
-    justify-content: center;
-    background: rgba(255, 255, 255,.8);
-    border-radius:2rem;
-    padding:4rem;
+.rdp-root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  background: rgba(255, 255, 255, .8);
+  border-radius: 2rem;
+  padding: 2rem;
 }
 
-.rdp-nav,.rdp-month_caption {
-    display: none;
+/* 네비게이션, 캡션 제거 */
+.rdp-nav, .rdp-month_caption {
+  display: none;
 }
-.rdp-month_grid{
-    display:flex;
-    flex-direction: column;
-}
-.rdp-month_grid .rdp-weekday{
 
-    border-bottom:1px solid var(--muted-rose); font-weight:bold;
+/* 🔑 요일 헤더 고정 */
+.rdp-weekdays {
+  width: 100%;
+  table-layout: fixed; /* 칸 균등 */
+  border-collapse: collapse;
 }
-.rdp-weeks{
-    padding-top:2rem;
+
+.rdp-weekdays th {
+  text-align: center;
+  border-bottom: 1px solid var(--muted-rose);
+  font-weight: bold;
+  width: calc(100% / 7); /* 7일 균등 */
+ padding-bottom:1.4rem;
 }
-.rdp-day, .rdp-weekday{
-    color:var(--muted-brown);
+
+.rdp-day, .rdp-weekday {
+  color: var(--muted-brown);
 }
-.rdp-weekday, .rdp-day_button{
-    cursor:default; 
-    line-height: 1rem; 
-    min-width: 40px;
-    min-height: 40px;
-    max-width: 80px;
-    max-height: 80px;
+
+.rdp-weekday,
+.rdp-day_button {
+  cursor: default;
+  line-height: 1rem;
+  min-width: 40px;
+  min-height: 40px;
+  max-width: 80px;
+  max-height: 80px;
+  text-align: center;
 }
-.rdp-selected{
-    background:var(--muted-rose);border-radius:50%; 
-    color:#fff;
-    font-weight:bold;
+
+/* 선택된 날짜 */
+.rdp-selected {
+  background: var(--muted-rose);
+  border-radius: 50%;
+  color: #fff;
+  font-weight: bold;
 }
-.rdp-selected .rdp-day_button{
-    border:none;
+
+.rdp-selected .rdp-day_button {
+  border: none;
 }
 
 `

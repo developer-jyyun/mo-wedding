@@ -8,45 +8,57 @@
   font-family: 'lobsterregular', sans-serif;
   position: relative;
   color: var(--hero-title);
-}
 
-.titleBox {
-  font-size: 10rem;
-  line-height: 1.4;
-  position: absolute;
-  top: -30px;
-  left: -10px;
-  z-index: 2;
-  text-align: left;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
-}
+  .titleBox {
+    font-size: 10rem;
+    line-height: 1.4;
+    position: absolute;
+    top: -30px;
+    left: -10px;
+    z-index: 2;
+    text-align: left;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
 
-.titleBox p {
-  margin: 0;
-  line-height: inherit;
-  letter-spacing: -0.02em;
+    p {
+      margin: 0;
+      line-height: inherit;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      transform: translateY(16px) scale(0.98);
+      filter: blur(3px);
 
-  opacity: 0;
-  transform: translateY(16px) scale(0.98);
-  filter: blur(3px);
-}
-.titleBox p:nth-child(2) {
-  margin-left: 0.3em;
-}
-.titleBox.animate p {
-  animation: title-rise 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-.titleBox.animate p:nth-child(1) {
-  animation-delay: 0.15s;
-}
-.titleBox.animate p:nth-child(2) {
-  animation-delay: 0.35s;
-}
-.titleBox.animate p:nth-child(3) {
-  animation-delay: 0.55s;
-}
-.titleBox.animate p:nth-child(4) {
-  animation-delay: 0.9s;
+      &:nth-child(2) {
+        margin-left: 0.3em;
+      }
+    }
+
+    &.animate {
+      p {
+        animation: title-rise 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
+        &:nth-child(1) {
+          animation-delay: 0.15s;
+        }
+        &:nth-child(2) {
+          animation-delay: 0.35s;
+        }
+        &:nth-child(3) {
+          animation-delay: 0.55s;
+        }
+        &:nth-child(4) {
+          animation-delay: 0.9s;
+        }
+      }
+    }
+  }
+
+  img {
+    width: min(92%, 720px);
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    left: 12%;
+  }
 }
 
 /* 키프레임 */
@@ -67,24 +79,19 @@
   }
 }
 
-/* 이미지 */
-.main img {
-  width: min(92%, 720px);
-  display: block;
-  margin: 0 auto;
-  position: relative;
-  left: 12%;
-}
-
+/* 반응형 */
 @media (max-width: 450px) {
-  .titleBox {
-    font-size: 8rem;
-    line-height: 1.3;
-    top: -10px;
-    left: -5%;
-  }
-  .main img {
-    width: 95%;
-    left: 5%;
+  .main {
+    .titleBox {
+      font-size: 8rem;
+      line-height: 1.3;
+      top: -10px;
+      left: -5%;
+    }
+
+    img {
+      width: 95%;
+      left: 5%;
+    }
   }
 }

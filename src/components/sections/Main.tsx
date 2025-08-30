@@ -3,7 +3,6 @@ import classNames from 'classnames/bind'
 import Section from '@common/Section'
 import styles from './Main.module.scss'
 import FallingFX from '@components/effects/FallingFX'
-import BgmToggle from '../common/BgmToggle'
 
 const cx = classNames.bind(styles)
 
