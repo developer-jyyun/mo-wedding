@@ -7,6 +7,7 @@ import icoNaver from '@/assets/icons/ico_navernav.png'
 import icoTmap from '@/assets/icons/ico_tnav.png'
 import icoKakao from '@/assets/icons/ico_kakaonav.png'
 import WayToCome from '../common/WayToCome'
+import Button from '@common/Button'
 declare global {
   interface Window {
     kakao: any
@@ -126,7 +127,28 @@ export default function Map({ location }: Props) {
 
       {/* 내비게이션 앱 버튼 */}
       <div className={cx('navapps')}>
-        <button className={cx('navbtn', 'naver')} onClick={openNaver}>
+        <Button
+          size="sm"
+          shape="rect"
+          imgSrc={icoNaver}
+          onClick={openNaver} // ✅ 그대로 사용 가능
+        >
+          네이버 지도
+        </Button>
+
+        <Button size="sm" shape="rect" imgSrc={icoTmap} onClick={openTmap}>
+          티맵
+        </Button>
+
+        <Button
+          size="sm"
+          shape="rect"
+          imgSrc={icoKakao}
+          onClick={openKakaoNavi}
+        >
+          카카오내비
+        </Button>
+        {/*         <button className={cx('navbtn', 'naver')} onClick={openNaver}>
           <img src={icoNaver} alt="" aria-hidden="true" />
           <span>네이버 지도</span>
         </button>
@@ -137,7 +159,7 @@ export default function Map({ location }: Props) {
         <button className={cx('navbtn', 'kakao')} onClick={openKakaoNavi}>
           <img src={icoKakao} alt="" aria-hidden="true" />
           <span>카카오내비</span>
-        </button>
+        </button> */}
       </div>
       {/* 탭 */}
       <div className={cx('tabCard')}>

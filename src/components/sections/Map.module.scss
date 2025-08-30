@@ -47,34 +47,6 @@
   flex-wrap: nowrap;
 }
 
-/* 공통 버튼 */
-.navbtn {
-  flex: 1 1 0;
-  min-width: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 12px;
-  border: 1px solid var(--light-gray);
-  background: #fff;
-  color: var(--muted-brown);
-  border-radius: 5px;
-  font-weight: 700;
-  font-size: 1.2rem;
-  line-height: 1;
-  white-space: nowrap;
-  font-family: 'IropkeBatangM', sans-serif;
-  cursor: pointer;
-}
-
-.navbtn img {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-  display: block;
-}
-
 /* 탭 */
 .tabCard {
   margin-top: 12px;

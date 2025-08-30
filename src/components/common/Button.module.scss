@@ -1,0 +1,69 @@
+.btn {
+  /* 공통 버튼 */
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--light-gray);
+  background: #fff;
+  color: var(--dark-brown);
+  white-space: nowrap;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.85;
+    font-size: 1.2rem;
+  }
+
+  &.sm {
+    flex: 1 1 0;
+    padding: 10px 12px;
+    font-size: 1.2rem;
+  }
+
+  &.md {
+    font-size: 1.4rem;
+    padding: 0.6rem 1.2rem;
+    height: 40px;
+  }
+
+  &.lg {
+    width: 100%;
+    font-size: 1.4rem;
+    padding: 0.8rem 1.6rem;
+    gap: 0.8rem;
+  }
+
+  &.rect {
+    border-radius: 0.5rem;
+  }
+
+  &.pill {
+    border-radius: 50px;
+  }
+
+  &.circle {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+  }
+
+  .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .label {
+    margin-left: 0.8rem;
+  }
+}

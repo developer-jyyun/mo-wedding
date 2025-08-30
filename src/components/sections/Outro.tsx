@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './Outro.module.scss'
 import classNames from 'classnames/bind'
 import Section from '@common/Section'
+import ShareActions from '../common/ShareActions'
 
 const cx = classNames.bind(styles)
 export default function Outro() {
@@ -25,6 +26,8 @@ export default function Outro() {
           alt="이미지"
         />
       </div>
+
+      <ShareActions />
 
       <p className={cx('copy-text')}>© Our Story, All rights reserved.</p>
     </Section>
