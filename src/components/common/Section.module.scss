@@ -1,24 +1,5 @@
-:root {
-  /* 더 부드럽고 천천히 */
-  --ease-emph: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-out-back: cubic-bezier(0.22, 1, 0.36, 1);
-  --reveal-distance: 20px;
-  --reveal-duration: 1100ms;
-  --stagger-step: 100ms; /* 자식 순차 등장 간격 */
-}
-
 .container {
   padding: 2.4rem;
-
-  /* 기본 리빌 상태 */
-  opacity: 0;
-  transform: translateY(var(--reveal-distance)) scale(0.98);
-  filter: blur(3px);
-  transition:
-    opacity var(--reveal-duration) linear,
-    transform var(--reveal-duration) var(--ease-out-back),
-    filter var(--reveal-duration) var(--ease-emph);
-  will-change: opacity, transform, filter;
 
   /* 섹션 타이틀 */
   .txt-title {
@@ -29,84 +10,5 @@
     margin-bottom: 3.2rem;
     color: var(--muted-rose);
     text-align: center;
-  }
-}
-
-/* 인터섹션 관찰 후 활성 상태 */
-.isVisible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
-}
-
-/* 히어로/CTA에서 살짝 더 팝하게 */
-.pop {
-  --reveal-distance: 16px;
-  transform: translateY(var(--reveal-distance)) scale(0.96);
-}
-
-/* 내부 패딩 제거(중첩 여백 방지용) */
-.noGutter {
-  padding: 0 !important;
-}
-
-/* 스태거 컨테이너: 자식 순차 등장 */
-.stagger > * {
-  opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity var(--reveal-duration) linear,
-    transform var(--reveal-duration) var(--ease-out-back),
-    filter var(--reveal-duration) var(--ease-emph);
-  filter: blur(2.5px);
-  will-change: opacity, transform, filter;
-}
-
-/* .stagger + .isVisible 함께일 때 자식 오픈 */
-.stagger.isVisible > * {
-  opacity: 1;
-  transform: none;
-  filter: none;
-}
-
-/* 간단한 nth-child 스태거 (1~10개) */
-.stagger.isVisible > *:nth-child(1) {
-  transition-delay: calc(var(--stagger-step) * 0);
-}
-.stagger.isVisible > *:nth-child(2) {
-  transition-delay: calc(var(--stagger-step) * 1);
-}
-.stagger.isVisible > *:nth-child(3) {
-  transition-delay: calc(var(--stagger-step) * 2);
-}
-.stagger.isVisible > *:nth-child(4) {
-  transition-delay: calc(var(--stagger-step) * 3);
-}
-.stagger.isVisible > *:nth-child(5) {
-  transition-delay: calc(var(--stagger-step) * 4);
-}
-.stagger.isVisible > *:nth-child(6) {
-  transition-delay: calc(var(--stagger-step) * 5);
-}
-.stagger.isVisible > *:nth-child(7) {
-  transition-delay: calc(var(--stagger-step) * 6);
-}
-.stagger.isVisible > *:nth-child(8) {
-  transition-delay: calc(var(--stagger-step) * 7);
-}
-.stagger.isVisible > *:nth-child(9) {
-  transition-delay: calc(var(--stagger-step) * 8);
-}
-.stagger.isVisible > *:nth-child(10) {
-  transition-delay: calc(var(--stagger-step) * 9);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .container,
-  .stagger > * {
-    transition: none;
-    transform: none;
-    filter: none;
-    opacity: 1;
   }
 }

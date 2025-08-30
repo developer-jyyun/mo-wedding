@@ -1,8 +1,4 @@
 :root {
-  --title-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --title-dur: 1100ms; /* 한 줄 재생시간  */
-  --title-gap: 240ms; /* 줄간 스태거 간격 */
-
   --hero-title: #37c27f;
   --hero-accent: #37c27f;
   --title-stroke: rgba(255, 255, 255, 0.45);
@@ -36,12 +32,6 @@
   font-size: 1em;
   line-height: inherit;
   letter-spacing: -0.02em;
-
-  /* 초기 숨김 */
-  opacity: 0;
-  transform: translateY(16px) scale(0.98);
-  filter: blur(3px);
-  will-change: opacity, transform, filter;
 }
 
 .titleBox p:nth-child(2) {
@@ -49,25 +39,6 @@
 }
 .titleBox p:last-child {
   color: var(--hero-accent);
-}
-
-/* 섹션이 보이면(data-visible="true") 애니메이션 시작 */
-[data-visible='true'] .titleBox p {
-  animation: title-rise var(--title-dur) var(--title-ease) forwards;
-}
-
-/* 스태거 */
-[data-visible='true'] .titleBox p:nth-child(1) {
-  animation-delay: calc(var(--title-gap) * 0);
-}
-[data-visible='true'] .titleBox p:nth-child(2) {
-  animation-delay: calc(var(--title-gap) * 1);
-}
-[data-visible='true'] .titleBox p:nth-child(3) {
-  animation-delay: calc(var(--title-gap) * 2);
-}
-[data-visible='true'] .titleBox p:nth-child(4) {
-  animation-delay: calc(var(--title-gap) * 3);
 }
 
 /* 키프레임 */

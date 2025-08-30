@@ -9,7 +9,7 @@ const cx = classNames.bind(styles)
 export default function Main() {
   return (
     <>
-      <Section pop stagger className={cx('mainRoot')}>
+      <Section className={cx('mainRoot')}>
         <BgmToggle
           src="/assets/audio/bgm.mp3"
           initiallyOn

@@ -10,11 +10,11 @@ export default function Outro() {
       <div className={cx('text')}>
         <p className={cx('top-text', 'gradient-text')}>Here begins Our</p>
 
-        <p className={cx('main-text', 'gradient-text')}>
+        <div className={cx('main-text', 'gradient-text')}>
           <p>Happily</p>
           <p> ever</p>
           <p>After</p>
-        </p>
+        </div>
       </div>
       <div className={cx('glow')}></div>
 
