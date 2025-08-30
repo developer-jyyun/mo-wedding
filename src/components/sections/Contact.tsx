@@ -44,7 +44,12 @@ export default function Contact({ groom, bride }: Props) {
         </p>
       </div>
 
-      <Accordion label="연락처" variant="contact">
+      <Accordion
+        label="연락하기"
+        variant="contact"
+        defaultOpen={false}
+        leftIcon={<PiPhoneCallFill />}
+      >
         <div className={cx('contact-contents')}>
           {/* 신랑측 */}
           <div className={cx('groom')}>

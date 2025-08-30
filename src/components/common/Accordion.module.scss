@@ -1,120 +1,112 @@
 :root {
-  --acc-duration: 520ms;
-  --acc-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --acc-duration-open: 700ms;
+  --acc-duration-close: 900ms;
+  --acc-ease-open: cubic-bezier(0.25, 1, 0.5, 1);
+  --acc-ease-close: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-/* 기존 내용 유지 */
 .wrap-accordion {
   margin: 1rem auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 
   .wrap-header {
-    margin: 2rem auto;
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: fit-content; /* ← 기본 pill */
-    border-radius: 50px;
     cursor: pointer;
-    padding: 0.6rem 2rem;
-    border: 1px solid #af9e9e;
-    box-shadow: 0px 3px 2px #e1dcdc;
-    color: var(--muted-brown);
-    background: rgba(210, 198, 198, 0.4);
-    > span {
-      color: var(--account-header-fg, var(--muted-brown));
-      font-weight: 600;
-      font-size: 1.4rem;
+    font-weight: 600;
+    font-size: 1.4rem;
+
+    .left-icon {
+      margin: 0.2rem 0.6rem 0 0;
     }
+
+    .label {
+      flex: 1;
+      text-align: center;
+    }
+
     .ico-arrow-down {
-      color: var(--account-header-fg, var(--muted-brown));
       margin-left: 0.6rem;
-      /* ▼ 회전만 부드럽게 (모양/색상은 기존 그대로) */
-      transition: transform var(--acc-duration) var(--acc-ease);
-      will-change: transform;
+      transition: transform var(--acc-duration-open) var(--acc-ease-open);
     }
   }
 
-  /* ▼ 슬라이드 애니메이션: display:none 대신 0fr → 1fr 전환 */
   .wrap-content {
-    display: grid;
-    grid-template-rows: 0fr; /* 닫힘: 높이 0 */
-    transition: grid-template-rows var(--acc-duration) var(--acc-ease);
-    width: 100%;
-    overflow: hidden;
-  }
-  /* 자식 컨테이너를 안전하게 클리핑 + 은은한 페이드/살짝 위에서 내려옴 */
-  .wrap-content > * {
-    min-height: 0;
-    overflow: hidden;
+    height: 0;
     opacity: 0;
-    transform: translateY(-6px);
-    transition:
-      opacity var(--acc-duration) var(--acc-ease),
-      transform var(--acc-duration) var(--acc-ease);
-    will-change: opacity, transform;
+    overflow: hidden;
+    transition-property: height, opacity;
+    transition-duration: var(--acc-duration-close); /* 기본 닫힘은 느리게 */
+    transition-timing-function: var(--acc-ease-close);
+  }
+
+  .inner {
+    padding: 1rem 2rem;
   }
 }
 
 .wrap-accordion.open {
-  .wrap-header {
-    .ico-arrow-down {
-      transform: rotate(-180deg);
-    }
+  .ico-arrow-down {
+    transform: rotate(-180deg);
+    transition-duration: var(--acc-duration-open);
+    transition-timing-function: var(--acc-ease-open);
   }
+
   .wrap-content {
-    grid-template-rows: 1fr; /* ← 열림: 컨텐츠 본높이 */
-    background-color: #ffffffa9; /* 기존 스타일 유지 */
-    width: 95%;
-    padding: 1rem 2rem;
-    border-radius: 1rem;
-  }
-  .wrap-content > * {
     opacity: 1;
-    transform: translateY(0);
+    transition-duration: var(--acc-duration-open);
+    transition-timing-function: var(--acc-ease-open);
   }
 }
 
-/* ────────────────────────────────────────────── */
-/*  (pill → 바) */
+/* Contact Variant */
+.accordion-contact {
+  .wrap-header {
+    padding: 0.6rem 2rem;
+    border: 1px solid #af9e9e;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.4);
+    color: var(--muted-brown);
+    box-shadow: 0px 3px 2px #e1dcdc;
+    margin-bottom: 2rem;
+  }
+
+  .wrap-content {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 1rem;
+    width: 95%;
+  }
+}
+
+/* Account Variant */
 .accordion-account {
   .wrap-header {
-    box-sizing: border-box;
     width: 100%;
-    margin: 0 auto;
     padding: 1.2rem 1.6rem;
     border: 1px solid var(--light-gray);
-    border-radius: 1rem; /* 상하 모두 둥글게(닫힌 상태) */
+    border-radius: 1rem;
     background-color: var(--account-header-bg, var(--dark-brown));
-    color: var(--account-header-fg, var(--dark-brown));
-    box-shadow: none;
-    justify-content: center;
+    color: var(--account-header-fg, #fff);
   }
-  .ico-arrow-down {
-    color: var(--account-header-fg, var(--dark-brown));
-    margin-left: 0.6rem;
+
+  .wrap-content {
+    background: #fff;
+    border: 1px solid var(--light-gray);
+    border-top: none;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+
+    .inner {
+      padding: 1.2rem 1rem 1.6rem;
+    }
   }
 }
 
-/* 열렸을 때 경계 처리 */
-.wrap-accordion.open.accordion-account {
-  .wrap-header {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  .wrap-content {
-    box-sizing: border-box;
-    width: 100%;
-    padding: 1.2rem 1rem 1.6rem;
-    background: #fff;
-    border: 1px solid var(--light-gray);
-    border-top: none; /* 헤더와 겹치지 않게 */
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem; /* 하단만 둥글게 */
-  }
+.wrap-accordion.open.accordion-account .wrap-header {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
