@@ -1,5 +1,5 @@
 import { RiKakaoTalkFill, RiShareFill } from 'react-icons/ri'
-import { useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import Button from '../common/Button'
 
 type ShareProps = {
@@ -9,15 +9,45 @@ type ShareProps = {
   shareUrl?: string
 }
 
+/** Kakao Share SDK 로더 */
+function useKakao(appKey?: string) {
+  useEffect(() => {
+    if (!appKey) return
+    if (window.Kakao?.isInitialized?.()) return
+
+    const s = document.createElement('script')
+    s.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js'
+    s.async = true
+    s.onload = () => {
+      if (window.Kakao && !window.Kakao.isInitialized()) {
+        window.Kakao.init(appKey)
+      }
+    }
+    document.head.appendChild(s)
+  }, [appKey])
+}
+
 export default function ShareActions({
   title,
   description,
   imageUrl = '/assets/og.webp',
   shareUrl,
 }: ShareProps) {
-  const link = useMemo(() => shareUrl ?? window.location.href, [shareUrl])
-  const shareTitle = title ?? document.title
-  const shareDesc = description ?? '소중한 날에 초대합니다.'
+  const kakaoKey =
+    process.env.REACT_APP_KAKAO_JS_KEY ?? process.env.REACT_APP_KAKAO_KEY
+  useKakao(kakaoKey)
+
+  const [link, setLink] = useState('')
+  const [shareTitle, setShareTitle] = useState('')
+  const [shareDesc, setShareDesc] = useState('소중한 날에 초대합니다.')
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setLink(shareUrl ?? window.location.href)
+      setShareTitle(title ?? document.title)
+      setShareDesc(description ?? '소중한 날에 초대합니다.')
+    }
+  }, [shareUrl, title, description])
 
   const onShareKakao = () => {
     if (!window.Kakao?.isInitialized?.()) {
@@ -63,7 +93,7 @@ export default function ShareActions({
         size="lg"
         shape="rect"
         icon={<RiKakaoTalkFill size={20} />}
-        style={{ marginBottom: '1rem', background: 'rgba(255,255,255,.4)' }}
+        style={{ marginBottom: '1rem', background: 'rgba(255, 238, 0, .1);)' }}
         onClick={onShareKakao}
       >
         카카오로 공유하기
