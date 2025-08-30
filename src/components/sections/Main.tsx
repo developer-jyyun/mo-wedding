@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
 import Section from '@common/Section'
 import styles from './Main.module.scss'
@@ -7,6 +8,13 @@ import BgmToggle from '../common/BgmToggle'
 const cx = classNames.bind(styles)
 
 export default function Main() {
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    // 로딩이 끝났다고 판단하는 시점
+    const timer = setTimeout(() => setReady(true), 300)
+    return () => clearTimeout(timer)
+  }, [])
   return (
     <>
       <Section className={cx('mainRoot')}>
@@ -29,9 +37,9 @@ export default function Main() {
           zIndex={0}
         />
         <div className={cx('main')}>
-          <div className={cx('titleBox')}>
+          <div className={cx('titleBox', { animate: ready })}>
             <p>Welcome</p>
-            <p> to</p>
+            <p>to</p>
             <p>Our</p>
             <p>Wedding!</p>
           </div>
