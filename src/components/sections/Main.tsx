@@ -26,7 +26,7 @@ export default function Main() {
           layers={3} // 원근감 추가
           burst // 초반 풍성
           maxFps={60}
-          zIndex={0}
+          zIndex={1}
         />
         <div className={cx('main')}>
           <div className={cx('titleBox', { animate: ready })}>
