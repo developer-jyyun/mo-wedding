@@ -18,11 +18,10 @@ export default function Main() {
           fadeMs={120}
           rememberMuted
         />
-        {/* <FallingFX mode="snow" density={0.8} wind={6} zIndex={1} /> */}
         <FallingFX
           mode="petal"
-          density={1.05} //
-          wind={10} // 8~12 사이 추천
+          density={1.2} //
+          wind={10} // 8~12 사이
           speed={0.92} // 전체 속도 살짝 ↓
           layers={3} // 원근감 추가
           burst // 초반 풍성
