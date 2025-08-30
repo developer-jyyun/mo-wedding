@@ -18,14 +18,6 @@ export default function Main() {
   return (
     <>
       <Section className={cx('mainRoot')}>
-        <BgmToggle
-          src="/assets/audio/bgm.mp3"
-          initiallyOn
-          initialVolume={0.28}
-          startAt={0.3}
-          fadeMs={120}
-          rememberMuted
-        />
         <FallingFX
           mode="petal"
           density={1.2} //

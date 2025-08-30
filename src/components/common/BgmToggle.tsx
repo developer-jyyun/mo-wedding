@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { HiMiniSpeakerWave, HiMiniSpeakerXMark } from 'react-icons/hi2'
 
 declare global {
@@ -10,157 +10,156 @@ declare global {
 type Props = {
   src?: string
   floating?: boolean
-  initiallyOn?: boolean
   initialVolume?: number
-  rememberMuted?: boolean
-  startAt?: number // 시작 무음 스킵용(초)
-  fadeMs?: number // 언뮤트 시 페이드인(ms)
 }
 
 export default function BgmToggle({
   src = '/assets/audio/bgm.mp3',
   floating = true,
-  initiallyOn = true,
   initialVolume = 0.24,
-  rememberMuted = true,
-  startAt = 0,
-  fadeMs = 180,
 }: Props) {
-  const initialDesiredMuted: boolean = (() => {
-    if (!rememberMuted) return !initiallyOn
-    const saved = localStorage.getItem('bgm-muted')
-    return saved == null ? !initiallyOn : saved === 'true'
-  })()
-
-  const desiredMutedRef = useRef<boolean>(initialDesiredMuted)
-  const [mutedUI, setMutedUI] = useState<boolean>(initialDesiredMuted)
+  const [mutedUI, setMutedUI] = useState(true) // 항상 음소거 아이콘으로 시작
   const [ready, setReady] = useState(false)
-
-  const ensurePreload = (url: string) => {
-    const id = '__bgm_preload__'
-    if (document.getElementById(id)) return
-    const link = document.createElement('link')
-    link.id = id
-    link.rel = 'preload'
-    link.as = 'audio'
-    link.href = url
-    document.head.appendChild(link)
-  }
+  const [showTip, setShowTip] = useState(true)
 
   useEffect(() => {
     const abs = new URL(src, window.location.href).href
-    ensurePreload(abs)
-
-    // 전역 싱글톤 확보
     let audio = window.__bgmAudio
+
     if (!audio) {
       audio = window.__bgmAudio = new Audio()
       audio.loop = true
       audio.preload = 'auto'
-      audio.style.display = 'none'
       document.body.appendChild(audio)
+      console.log('[BGM] 새 오디오 생성됨')
     }
 
-    // 소스 지정
-    if (audio.src !== abs) audio.src = abs
+    if (audio.src !== abs) {
+      audio.src = abs
+      console.log('[BGM] 오디오 소스 설정됨:', abs)
+    }
 
-    // 항상 무음으로 먼저 재생(버퍼링 선행)
-    audio.volume = Math.max(0, Math.min(1, initialVolume))
-    audio.muted = true
+    audio.volume = initialVolume
+    audio.pause() // 초기는 무조건 정지
     audio.load()
+    console.log('[BGM] 초기 상태: paused?', audio.paused)
 
-    const onCanPlay = () => setReady(true)
-    audio.addEventListener('canplaythrough', onCanPlay, { once: true })
-    audio.play().catch(() => {}) // iOS에서도 무음재생은 허용
-
-    // 첫 사용자 제스처에서 즉시 들리게
-    const unlock = () => {
-      const a = window.__bgmAudio!
-      if (startAt > 0 && a.currentTime < startAt - 0.05) {
-        try {
-          a.currentTime = startAt
-        } catch {}
-      }
-      if (desiredMutedRef.current) {
-        a.muted = true
-        setMutedUI(true)
-      } else {
-        a.muted = false
-        a.play().catch(() => {})
-        if (fadeMs > 0) {
-          const target = initialVolume
-          const start = performance.now()
-          a.volume = 0
-          const tick = (t: number) => {
-            const k = Math.min(1, (t - start) / fadeMs)
-            const newVolume = target * k
-            a.volume = Math.max(0, Math.min(1, newVolume)) //clamp 적용
-            if (k < 1) requestAnimationFrame(tick)
-          }
-          requestAnimationFrame(tick)
-        } else {
-          a.volume = Math.max(0, Math.min(1, initialVolume)) //clamp 적용
-        }
-        setMutedUI(false)
-      }
-      window.removeEventListener('pointerdown', unlock)
+    const onCanPlay = () => {
+      console.log('[BGM] 오디오 로드 완료 (canplaythrough)')
+      setReady(true)
     }
-    window.addEventListener('pointerdown', unlock, { once: true })
+    audio.addEventListener('canplaythrough', onCanPlay, { once: true })
 
     return () => {
-      window.removeEventListener('pointerdown', unlock)
-      window.__bgmAudio?.removeEventListener('canplaythrough', onCanPlay)
+      audio?.removeEventListener('canplaythrough', onCanPlay)
     }
-  }, [src, initialVolume, initiallyOn, rememberMuted, startAt, fadeMs])
+  }, [src, initialVolume])
 
   const toggle = () => {
-    desiredMutedRef.current = !desiredMutedRef.current
     const a = window.__bgmAudio
-    if (a) {
-      a.muted = desiredMutedRef.current
-      if (!a.muted && a.paused) a.play().catch(() => {})
+    if (!a) return
+
+    console.log('[BGM] 버튼 클릭됨, paused?', a.paused, 'mutedUI?', mutedUI)
+
+    if (a.paused) {
+      // 재생
+      a.currentTime = 0
+      a.volume = initialVolume
+      a.play()
+        .then(() => console.log('[BGM] 재생 성공'))
+        .catch((err) => console.error('[BGM] 재생 실패', err))
+      setMutedUI(false)
+    } else {
+      // 정지
+      a.pause()
+      console.log('[BGM] 정지됨')
+      setMutedUI(true)
     }
-    if (rememberMuted)
-      localStorage.setItem('bgm-muted', String(desiredMutedRef.current))
-    setMutedUI(desiredMutedRef.current)
   }
 
   const Btn = (
-    <button
-      type="button"
-      onClick={toggle}
-      aria-label={mutedUI ? '배경음악 켜기' : '배경음악 끄기'}
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 40,
-        height: 40,
-        borderRadius: 999,
-        border: '1px solid var(--light-gray)',
-        background: 'rgba(255,255,255,.85)',
-        color: 'var(--muted-brown)',
-        boxShadow: '0 6px 16px rgba(0,0,0,.06)',
-        opacity: ready ? 1 : 0,
-        transition: 'opacity 360ms ease',
-      }}
-    >
-      {mutedUI ? (
-        <HiMiniSpeakerXMark size={20} />
-      ) : (
-        <HiMiniSpeakerWave size={20} />
+    <div style={{ position: 'relative', display: 'inline-block', zIndex: '1' }}>
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label={mutedUI ? '배경음악 켜기' : '배경음악 끄기'}
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 40,
+          height: 40,
+          borderRadius: 999,
+          border: '1px solid var(--light-gray)',
+          background: 'rgba(255,255,255,.85)',
+          color: 'var(--muted-brown)',
+          boxShadow: '0 6px 16px rgba(0,0,0,.06)',
+          opacity: ready ? 1 : 0,
+          transition: 'opacity 360ms ease',
+        }}
+      >
+        {mutedUI ? (
+          <HiMiniSpeakerXMark size={20} />
+        ) : (
+          <HiMiniSpeakerWave size={20} />
+        )}
+      </button>
+
+      {/* 안내 툴팁 */}
+      {showTip && mutedUI && (
+        <div
+          style={{
+            position: 'absolute',
+            right: '120%',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            background: 'rgba(145, 81, 81, 0.5)',
+            color: '#fff',
+            padding: '4px 8px',
+            borderRadius: 6,
+            fontSize: '1rem',
+            whiteSpace: 'nowrap',
+            opacity: 1,
+            animation: 'fadeout 1s ease 4s forwards',
+          }}
+          onAnimationEnd={() => setShowTip(false)}
+        >
+          배경음악이 준비되었습니다 🎶
+          <div
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '100%',
+              transform: 'translateY(-50%)',
+              width: 0,
+              height: 0,
+              borderTop: '3px solid transparent',
+              borderBottom: '3px solid transparent',
+              borderLeft: '5px solid rgba(145, 81, 81, 0.5)',
+            }}
+          />
+        </div>
       )}
-    </button>
+      <style>
+        {`
+        @keyframes fadeout {
+          to {
+            opacity: 0;
+            visibility: hidden;
+          }
+        }
+        `}
+      </style>
+    </div>
   )
 
   if (!floating) return Btn
   return (
     <div
       style={{
-        position: 'fixed',
-        top: 'calc(env(safe-area-inset-top, 8px) + 8px)',
-        right: 'calc(env(safe-area-inset-right, 8px) + 8px)',
-        zIndex: 10000,
+        position: 'absolute',
+        top: '8px',
+        right: '8px',
       }}
     >
       {Btn}

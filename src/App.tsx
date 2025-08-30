@@ -14,6 +14,7 @@ import Contact from '@components/sections/Contact'
 import Account from '@components/sections/Account'
 import Outro from './components/sections/Outro'
 import TopButton from './components/common/TopButton'
+import BgmToggle from './components/common/BgmToggle'
 
 const cx = classNames.bind(styles)
 
@@ -57,6 +58,7 @@ function App() {
 
   return (
     <div className={cx('container')}>
+      <BgmToggle src="/assets/audio/bgm.mp3" initialVolume={0.28} />
       <Main />
       <Intro
         invitation={message.invitation}

@@ -16,7 +16,6 @@ export default function Heading({ date, groomName, brideName }: Props) {
 
   return (
     <Section className={cx('container')}>
-      <BgmToggle src="/assets/audio/bgm.mp3" initiallyOn initialVolume={0.18} />
       <div className={cx('top')}>
         <div className={cx('date')}>{format(weddingDate, 'MM/dd')}</div>
         <div className={cx('names')}>
