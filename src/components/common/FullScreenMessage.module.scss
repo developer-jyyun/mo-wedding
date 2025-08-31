@@ -1,3 +1,5 @@
+@import '@/scss/utils.scss';
+
 .container {
   position: fixed;
   top: 0;
@@ -5,23 +7,39 @@
   bottom: 0;
   left: 0;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  @include flex-col-center;
 
-  font-family: 'NanumDdaAgDanDan';
+  color: var(--dark-brown);
+
   font-size: 1.4rem;
   font-weight: bold;
   color: var(--dark-brown);
+  .loading,
+  .error {
+    @include flex-col-center;
+    gap: 2rem;
+  }
+  .icon-spinner {
+    font-size: 2.5rem;
+    color: #1dec84; // 네 포인트 컬러
+    animation: spin 1s linear infinite;
+    text-align: center;
+  }
 
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
   .icon-error {
     width: 50px;
     height: 50px;
-    color: var(--dark-brown);
   }
 }
-.icon-heart {
+/* .icon-heart {
   width: 40px;
   height: 40px;
   fill: var(--red);
@@ -45,3 +63,4 @@
     transform: scale(0.9);
   }
 }
+ */

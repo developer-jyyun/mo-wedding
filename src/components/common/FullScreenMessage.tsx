@@ -1,7 +1,8 @@
 import styles from './FullScreenMessage.module.scss'
 import classNames from 'classnames/bind'
 import { TbFaceIdError } from 'react-icons/tb'
-import { FaHeart } from 'react-icons/fa'
+// import { FaHeart } from 'react-icons/fa'
+import { ImSpinner2 } from 'react-icons/im'
 
 const cx = classNames.bind(styles)
 
@@ -9,6 +10,7 @@ interface FullScreenMessageProps {
   type: 'loading' | 'error'
   text?: string
 }
+
 export default function FullScreenMessage({
   type,
   text,
@@ -16,13 +18,15 @@ export default function FullScreenMessage({
   return (
     <div className={cx('container')}>
       {type === 'loading' ? (
-        <FaHeart className={cx('icon-heart')} />
-      ) : (
-        <>
-          <TbFaceIdError className={cx('icon-error')} />
-          <br />
+        <div className={cx('loading')}>
+          <ImSpinner2 className={cx('icon-spinner')} />
           <p>{text}</p>
-        </>
+        </div>
+      ) : (
+        <div className={cx('error')}>
+          <TbFaceIdError className={cx('icon-error')} />
+          <p>{text}</p>
+        </div>
       )}
     </div>
   )
