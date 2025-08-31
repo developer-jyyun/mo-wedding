@@ -75,10 +75,11 @@
 // -------------------- Glow 효과 --------------------
 .glow {
   position: absolute;
-  top: 30%;
-  left: 22%;
-  width: 300px;
-  height: 300px;
+  width: 280px;
+  height: 280px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   border-radius: 50% 50% 0 0;
   background: radial-gradient(
     ellipse at center,
@@ -99,10 +100,12 @@
   100% {
     opacity: 0.6;
     transform: scale(0.6);
+    transform: translate(-50%, -50%);
   }
   50% {
     opacity: 1;
     transform: scale(1.2);
+    transform: translate(-50%, -50%);
   }
 }
 

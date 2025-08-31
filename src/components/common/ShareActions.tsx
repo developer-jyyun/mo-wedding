@@ -30,7 +30,7 @@ function useKakao(appKey?: string) {
 export default function ShareActions({
   title,
   description,
-  imageUrl = '/assets/og.webp',
+  imageUrl = '/assets/og.jpg',
   shareUrl,
 }: ShareProps) {
   const kakaoKey =
