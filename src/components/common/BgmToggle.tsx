@@ -18,10 +18,33 @@ export default function BgmToggle({
   floating = true,
   initialVolume = 0.24,
 }: Props) {
-  const [mutedUI, setMutedUI] = useState(true) // 항상 음소거 아이콘으로 시작
-  const [ready, setReady] = useState(false)
-  const [showTip, setShowTip] = useState(true)
+  const [mutedUI, setMutedUI] = useState(true)
+  const [ready, setReady] = useState(false) // 버튼 등장
+  const [showTip, setShowTip] = useState(false) // 마운트 여부
+  const [tipVisible, setTipVisible] = useState(false) // 실제 화면 노출 여부 (fade)
 
+  // Intro 끝난 뒤 버튼 딜레이 + 툴팁 딜레이
+  useEffect(() => {
+    const btnTimer = setTimeout(() => setReady(true), 500) // 0.5s 뒤 버튼 표시
+
+    const tipTimer = setTimeout(() => {
+      setShowTip(true)
+      setTimeout(() => setTipVisible(true), 50) // fade-in
+    }, 1500) // 1.5s 뒤 툴팁 등장
+
+    const hideTipTimer = setTimeout(() => {
+      setTipVisible(false) // fade-out
+      setTimeout(() => setShowTip(false), 1000) // transition 끝난 뒤 DOM 제거
+    }, 4000) // 1.5s 뒤 등장 + (약 2.5s 유지) = 4s 시점에 fade-out 시작
+
+    return () => {
+      clearTimeout(btnTimer)
+      clearTimeout(tipTimer)
+      clearTimeout(hideTipTimer)
+    }
+  }, [])
+
+  // 오디오 준비
   useEffect(() => {
     const abs = new URL(src, window.location.href).href
     let audio = window.__bgmAudio
@@ -31,54 +54,34 @@ export default function BgmToggle({
       audio.loop = true
       audio.preload = 'auto'
       document.body.appendChild(audio)
-      console.log('[BGM] 새 오디오 생성됨')
     }
 
     if (audio.src !== abs) {
       audio.src = abs
-      console.log('[BGM] 오디오 소스 설정됨:', abs)
     }
 
     audio.volume = initialVolume
-    audio.pause() // 초기는 무조건 정지
+    audio.pause()
     audio.load()
-    console.log('[BGM] 초기 상태: paused?', audio.paused)
-
-    const onCanPlay = () => {
-      console.log('[BGM] 오디오 로드 완료 (canplaythrough)')
-      setReady(true)
-    }
-    audio.addEventListener('canplaythrough', onCanPlay, { once: true })
-
-    return () => {
-      audio?.removeEventListener('canplaythrough', onCanPlay)
-    }
   }, [src, initialVolume])
 
   const toggle = () => {
     const a = window.__bgmAudio
     if (!a) return
 
-    console.log('[BGM] 버튼 클릭됨, paused?', a.paused, 'mutedUI?', mutedUI)
-
     if (a.paused) {
-      // 재생
       a.currentTime = 0
       a.volume = initialVolume
-      a.play()
-        .then(() => console.log('[BGM] 재생 성공'))
-        .catch((err) => console.error('[BGM] 재생 실패', err))
+      a.play().catch((err) => console.error('[BGM] 재생 실패', err))
       setMutedUI(false)
     } else {
-      // 정지
       a.pause()
-      console.log('[BGM] 정지됨')
       setMutedUI(true)
     }
   }
 
   const Btn = (
-    <div style={{ position: 'relative', display: 'inline-block', zIndex: '1' }}>
+    <div style={{ position: 'relative', display: 'inline-block', zIndex: 1 }}>
       <button
         type="button"
         onClick={toggle}
@@ -95,7 +98,7 @@ export default function BgmToggle({
           color: 'var(--muted-brown)',
           boxShadow: '0 6px 16px rgba(0,0,0,.06)',
           opacity: ready ? 1 : 0,
-          transition: 'opacity 360ms ease',
+          transition: 'opacity 400ms ease',
         }}
       >
         {mutedUI ? (
@@ -113,16 +116,15 @@ export default function BgmToggle({
             right: '120%',
             top: '50%',
             transform: 'translateY(-50%)',
-            background: 'rgba(145, 81, 81, 0.5)',
+            background: 'rgba(145, 81, 81, 0.85)',
             color: '#fff',
             padding: '4px 8px',
             borderRadius: 6,
             fontSize: '1rem',
             whiteSpace: 'nowrap',
-            opacity: 1,
-            animation: 'fadeout 1s ease 4s forwards',
+            opacity: tipVisible ? 1 : 0,
+            transition: 'opacity 1s ease',
           }}
-          onAnimationEnd={() => setShowTip(false)}
         >
           배경음악이 준비되었습니다 🎶
           <div
@@ -135,34 +137,14 @@ export default function BgmToggle({
               height: 0,
               borderTop: '3px solid transparent',
               borderBottom: '3px solid transparent',
-              borderLeft: '5px solid rgba(145, 81, 81, 0.5)',
+              borderLeft: '5px solid rgba(145, 81, 81, 0.85)',
             }}
           />
         </div>
       )}
-      <style>
-        {`
-        @keyframes fadeout {
-          to {
-            opacity: 0;
-            visibility: hidden;
-          }
-        }
-        `}
-      </style>
     </div>
   )
 
   if (!floating) return Btn
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        top: '8px',
-        right: '8px',
-      }}
-    >
-      {Btn}
-    </div>
-  )
+  return <div style={{ position: 'absolute', top: 8, right: 8 }}>{Btn}</div>
 }

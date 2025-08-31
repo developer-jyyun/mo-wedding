@@ -11,7 +11,7 @@ export default function FullScreenIntro() {
       >
         <div className={cx('intro-content')}>
           <div className={cx('line1')}>We are getting</div>
-          <div className={cx('line2')}>Married !</div>
+          <div className={cx('line2')}>Married ! </div>
         </div>
       </div>
     </div>

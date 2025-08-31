@@ -11,22 +11,23 @@ const container = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15, // 살짝 간격
+      staggerChildren: 0.15, // 자식 요소 순차적 등장
     },
   },
 }
 
-// 자식 공통 애니메이션
-const item = {
-  hidden: { opacity: 0, y: 40 }, // y값 크게 → 스르륵 위로 올라오는 느낌
-  show: {
+// 자식 공통 애니메이션 (custom index 사용)
+const item: Record<string, any> = {
+  hidden: { opacity: 0, y: 40 },
+  show: (i: number) => ({
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1, // AOS 기본은 1초
-      ease: [0.25, 0.1, 0.25, 1] as any, // CSS 기본 ease
+      duration: 1.2,
+      ease: [0.25, 0.1, 0.25, 1] as const, // as const 필수
+      delay: i * 0.2, // index 기반 딜레이
     },
-  },
+  }),
 }
 
 interface SectionProps extends Omit<HTMLMotionProps<'section'>, 'title'> {
@@ -53,13 +54,13 @@ export default function Section({
       viewport={{ once: false, amount: 0.2 }}
     >
       {title && (
-        <motion.div className={cx('txt-title')} variants={item}>
+        <motion.div className={cx('txt-title')} variants={item} custom={0}>
           {title}
         </motion.div>
       )}
       <motion.div className={cx('content')}>
         {React.Children.map(children, (child, idx) => (
-          <motion.div key={idx} variants={item}>
+          <motion.div key={idx} variants={item} custom={idx + 1}>
             {child}
           </motion.div>
         ))}

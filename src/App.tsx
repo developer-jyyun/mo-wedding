@@ -23,20 +23,21 @@ const cx = classNames.bind(styles)
 function App() {
   const [intro, setIntro] = useState(true)
   const [wedding, setWedding] = useState<Wedding | null>(null)
-  const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
-  // 인트로 종료 타이머
   useEffect(() => {
-    const timer = setTimeout(() => setIntro(false), 5000) // 인트로 지속 시간
+    // 인트로 fadeOut(1.2s) + delay(4s) = 총 5.2s
+    const timer = setTimeout(() => {
+      setIntro(false)
+    }, 5200)
+
     return () => clearTimeout(timer)
   }, [])
 
-  // wedding.json 데이터 fetch
+  // 데이터 fetch
   useEffect(() => {
     if (intro) return
     let cancelled = false
-    setLoading(true)
 
     fetch('/wedding.json')
       .then((res) => res.json())
@@ -44,17 +45,16 @@ function App() {
         if (!cancelled) setWedding(data.wedding)
       })
       .catch(() => setError(true))
-      .finally(() => setLoading(false))
 
     return () => {
       cancelled = true
     }
   }, [intro])
 
-  // Intro 전체 화면
+  // Intro만 화면 전체 오버레이
   if (intro) return <FullScreenIntro />
 
-  // 에러 화면
+  // 데이터 에러 시
   if (error) {
     return (
       <FullScreenMessage
@@ -64,10 +64,13 @@ function App() {
     )
   }
 
-  // wedding 데이터 없으면 null
-  if (!wedding) return null
+  // wedding 데이터가 없을 경우(예외 처리)
+  if (!wedding) {
+    return (
+      <FullScreenMessage type="loading" text="데이터를 불러오는 중입니다..🐢" />
+    )
+  }
 
-  // wedding 데이터 구조분해
   const { groom, bride, date, galleryImages, message, location } = wedding
 
   return (
