@@ -28,7 +28,7 @@ function App() {
 
   // 인트로 종료 타이머
   useEffect(() => {
-    const timer = setTimeout(() => setIntro(false), 10000) // 인트로 지속 시간
+    const timer = setTimeout(() => setIntro(false), 5000) // 인트로 지속 시간
     return () => clearTimeout(timer)
   }, [])
 
@@ -52,7 +52,7 @@ function App() {
   }, [intro])
 
   // Intro 전체 화면
-  if (intro) return <FullScreenIntro onFinish={() => setIntro(false)} />
+  if (intro) return <FullScreenIntro />
 
   // 에러 화면
   if (error) {
