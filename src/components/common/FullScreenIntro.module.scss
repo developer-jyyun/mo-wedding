@@ -1,0 +1,107 @@
+@import '@/scss/utils.scss';
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  @include flex-col-center;
+
+  /* 전체 페이드아웃 (마지막에 사라짐) */
+  animation: fadeOut 1.2s ease forwards;
+  animation-delay: 8s; // 텍스트 다 나오고 나서 사라지기
+}
+
+.inner {
+  width: 100%;
+  max-width: 480px;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1;
+    /* 밝아지고, blur 풀리면서 */
+    animation:
+      lighten 4s ease forwards,
+      focusIn 4s ease forwards;
+  }
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  @include flex-col-center;
+  top: -20rem;
+}
+
+.line1,
+.line2 {
+  font-family: 'hurricaneregular', cursive;
+  font-size: 7rem;
+  background: linear-gradient(90deg, #1dec84, #b9f4b3, #25774e);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: drawText 2.5s ease forwards;
+  white-space: nowrap;
+  opacity: 0;
+  line-height: 6rem;
+}
+
+.line1 {
+  animation-delay: 0s;
+}
+
+.line2 {
+  animation-delay: 2s;
+}
+
+/* 왼쪽에서부터 글씨 써지는 효과 */
+@keyframes drawText {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+/* 배경 딤 밝아짐 */
+@keyframes lighten {
+  0% {
+    background: rgba(0, 0, 0, 0.9);
+  }
+  100% {
+    background: rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* blur → 선명 */
+@keyframes focusIn {
+  0% {
+    backdrop-filter: blur(12px) brightness(0.6);
+  }
+  100% {
+    backdrop-filter: blur(0) brightness(1);
+  }
+}
+
+/* 인트로 전체 페이드아웃 */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

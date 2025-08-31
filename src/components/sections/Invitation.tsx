@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind'
 import Section from '@common/Section'
-import styles from './Intro.module.scss'
+import styles from './Invitation.module.scss'
 import { parseISO, format, getDay } from 'date-fns'
 import Text from '@common/Text'
 
@@ -21,7 +21,7 @@ interface Props {
   locationName: string
   invitation: string
 }
-export default function Intro({ date, locationName, invitation }: Props) {
+export default function Invitation({ date, locationName, invitation }: Props) {
   const weddingDate = parseISO(date)
   const dayIndex = getDay(weddingDate)
   return (
@@ -29,7 +29,7 @@ export default function Intro({ date, locationName, invitation }: Props) {
       <Section className={cx('container')}>
         <div className={cx('info')}>
           <span>
-            {format(weddingDate, 'yyyy년 mm월 dd일 ')}
+            {format(weddingDate, 'yyyy년 MM월 dd일 ')}
             {DAYS[dayIndex]}
           </span>
           <p>{locationName}</p>
